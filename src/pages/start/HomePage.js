@@ -1,5 +1,5 @@
 import { useState } from "react";
-//asdfghjk
+import { useLocation } from "react-router-dom";
 
 import {
   Button,
@@ -16,6 +16,10 @@ import {
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 const HomePage = () => {
+  const location = useLocation();
+  const querySearch = new URLSearchParams(location.search);
+
+  const [gameCode, setGameCode] = useState(querySearch.get("gameCode") || "");
   const [values, setValues] = useState({
     amount: "",
     password: "",
@@ -35,6 +39,13 @@ const HomePage = () => {
     });
   };
 
+  const gameCodeChangeHandler = (event) => {
+    if (event.target.value.trim().length <= 6)
+    setGameCode(event.target.value);
+  };
+
+  const gameStartHandler = (event) => {};
+
   return (
     <Container
       style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
@@ -42,8 +53,14 @@ const HomePage = () => {
       <Typography variant="h1" sx={{ m: "1em" }}>
         Welcome!
       </Typography>
-      <TextField label="Game code:" type="search" variant="filled" />
-      <Button variant="contained" sx={{ m: "20px" }}>
+      <TextField
+        label="Game code:"
+        type="search"
+        variant="filled"
+        value={gameCode}
+        onChange={gameCodeChangeHandler}
+      />
+      <Button variant="contained" sx={{ m: "20px" }} onClick={gameStartHandler}>
         Start Game!
       </Button>
       <Button variant="contained" sx={{ m: "20px" }}>
