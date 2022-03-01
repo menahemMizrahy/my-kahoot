@@ -28,7 +28,6 @@ function App() {
 
       <Route path="/admin">
         <Route path="wait" />
-
         <Route path="game">
           <Route path="wait" />
           <Route path="finish" />

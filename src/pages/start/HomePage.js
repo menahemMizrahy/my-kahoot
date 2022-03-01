@@ -1,98 +1,84 @@
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
-import {
-  Button,
-  Container,
-  FilledInput,
-  FormControl,
-  IconButton,
-  InputAdornment,
-  InputLabel,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Button, Typography } from "@mui/material";
 
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+import Password from "../../components/Password";
+import MyPaper from "../../layout/MyPaper";
+import MyInput from "../../components/MyInput";
 
 const HomePage = () => {
+  const navigate = useNavigate();
   const location = useLocation();
   const querySearch = new URLSearchParams(location.search);
 
   const [gameCode, setGameCode] = useState(querySearch.get("gameCode") || "");
-  const [values, setValues] = useState({
-    amount: "",
-    password: "",
-    weight: "",
-    weightRange: "",
-    showPassword: false,
-  });
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [enterAsAdmin, setEnterAsAdmin] = useState(false);
 
-  const handleChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
+  const passwordChangeHandler = (event) => {
+    setPassword(event.target.value);
   };
 
-  const handleClickShowPassword = () => {
-    setValues({
-      ...values,
-      showPassword: !values.showPassword,
-    });
+  const showPasswordHandler = () => {
+    setShowPassword((show) => !show);
   };
 
   const gameCodeChangeHandler = (event) => {
-    if (event.target.value.trim().length <= 6)
-    setGameCode(event.target.value);
+    const value = event.target.value.trim();
+    if (value.length <= 6) setGameCode(value);
   };
 
-  const gameStartHandler = (event) => {};
+  const gameStartHandler = () => {
+    //   if(gameCode === 6)
+  };
+
+  const enterAsAdminHandler = () => {
+    setEnterAsAdmin(true);
+    //
+  };
+
+  const createGameHandler = () => {
+    navigate("/new-game", { replace: true });
+  };
 
   return (
-    <Container
-      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
-    >
+    <MyPaper>
       <Typography variant="h1" sx={{ m: "1em" }}>
         Welcome!
       </Typography>
-      <TextField
+      <MyInput
         label="Game code:"
-        type="search"
-        variant="filled"
         value={gameCode}
         onChange={gameCodeChangeHandler}
+        type="search"
       />
       <Button variant="contained" sx={{ m: "20px" }} onClick={gameStartHandler}>
         Start Game!
       </Button>
-      <Button variant="contained" sx={{ m: "20px" }}>
+      <Button
+        variant="contained"
+        sx={{ m: "20px" }}
+        onClick={enterAsAdminHandler}
+      >
         Enter as Admin
       </Button>
 
-      <FormControl sx={{ m: 1, width: "25ch" }} variant="filled">
-        <InputLabel htmlFor="filled-adornment-password">Password</InputLabel>
-        <FilledInput
-          id="filled-adornment-password"
-          type={values.showPassword ? "text" : "password"}
-          value={values.password}
-          onChange={handleChange("password")}
-          endAdornment={
-            <InputAdornment position="end">
-              <IconButton
-                aria-label="toggle password visibility"
-                onClick={handleClickShowPassword}
-                edge="end"
-              >
-                {values.showPassword ? <VisibilityOff /> : <Visibility />}
-              </IconButton>
-            </InputAdornment>
-          }
+      {enterAsAdmin && (
+        <Password
+          password={password}
+          showPassword={showPassword}
+          passwordChangeHandler={passwordChangeHandler}
+          showPasswordHandler={showPasswordHandler}
         />
-      </FormControl>
-      <div
-        style={{ alignSelf: "start", display: "flex", flexDirection: "column" }}
-      >
-        <Button>Create a New Game</Button>
+      )}
+      <div>
+        <Button variant="outlined" onClick={createGameHandler}>
+          Create a New Game
+        </Button>
       </div>
-    </Container>
+    </MyPaper>
   );
 };
 
