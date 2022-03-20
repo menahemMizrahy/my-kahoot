@@ -1,8 +1,7 @@
 import { TextField } from "@mui/material";
-import { borderColor } from "@mui/system";
 
 const MyInput = (props) => {
-  return <TextField {...props} color="secondary" />;
+  return <TextField {...props} color="secondary" multiline />;
 };
 
 export default MyInput;

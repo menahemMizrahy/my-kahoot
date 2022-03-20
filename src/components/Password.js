@@ -9,26 +9,6 @@ import {
 } from "@mui/material";
 import { Fragment, useState } from "react";
 
-export const usePassword = () => {
-  const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-
-  const passwordChangeHandler = (event) => {
-    setPassword(event.target.value);
-  };
-
-  const showPasswordHandler = () => {
-    setShowPassword((show) => !show);
-  };
-
-  return {
-    password,
-    showPassword,
-    passwordChangeHandler,
-    showPasswordHandler,
-  };
-};
-
 const Password = (props) => {
   return (
     <Fragment>
