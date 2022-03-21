@@ -5,6 +5,11 @@ const useInput = (initialValue, validation) => {
   const changeHandler = (event) => setValue(event.target.value.trim());
 
   const [haseTuched, setHaseTuched] = useState(false);
+
+  if (!validation) {
+    return { value, onChange: changeHandler };
+  }
+
   const blurHandler = () => setHaseTuched(true);
 
   const valueIsValid = validation(value);

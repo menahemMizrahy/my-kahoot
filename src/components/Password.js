@@ -7,7 +7,7 @@ import {
   OutlinedInput,
   Typography,
 } from "@mui/material";
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 
 const Password = (props) => {
   return (
