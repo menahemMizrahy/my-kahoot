@@ -31,7 +31,7 @@ const HomePage = () => {
   };
 
   const createGameHandler = () => {
-    navigate("/new-game", { replace: true });
+    navigate("/new-game");
   };
 
   return (
