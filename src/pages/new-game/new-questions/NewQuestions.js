@@ -1,9 +1,9 @@
-import { Grid } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 
 const NewQuestions = () => {
   let questionsCounter = 1;
   return (
-    <Grid container>
+    <Grid container sx={{ height: "80vh" }}>
       <Grid
         item
         xs={2}
@@ -19,9 +19,16 @@ const NewQuestions = () => {
             backgroundColor: "grey",
             height: "6em",
             width: "6em",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
           {`# ${questionsCounter}`}
+        </div>
+        <div>
+          <Button variant="contained">next question</Button>
+          <Button variant="contained">finish</Button>
         </div>
       </Grid>
       <Grid item xs={8}>
