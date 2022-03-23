@@ -2,7 +2,9 @@ import { useState } from "react";
 
 const useInput = (initialValue, validation) => {
   const [value, setValue] = useState(initialValue);
-  const changeHandler = (event) => setValue(event.target.value.trim());
+  const changeHandler = (event) => {
+    setValue(event.target.value);
+  };
 
   const [haseTuched, setHaseTuched] = useState(false);
 
