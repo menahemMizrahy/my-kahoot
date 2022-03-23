@@ -11,16 +11,14 @@ const NewQuestions = () => {
   const answer3 = useInput("");
 
   const trueAnswerRef = useRef();
-  const falseAnswerRef = useRef();
 
-  const [openQuestion, setOpenQuestion] = useState(false);
+  const [openQuestion, setOpenQuestion] = useState(true);
   const questionTypeHandler = () => {
     setOpenQuestion(!openQuestion);
   };
 
   const aa = () => {
-    console.log(trueAnswerRef.current.checked);
-    console.log(falseAnswerRef.current.checked);
+    console.log(!!trueAnswerRef.current.checked);
   };
 
   let questionsCounter = 1;
@@ -51,14 +49,9 @@ const NewQuestions = () => {
         <Button variant="contained" onClick={questionTypeHandler}>
           Question type
         </Button>
-        <div>
-          <Button variant="contained" sx={{ m: "1rem" }} onClick={aa}>
-            next question
-          </Button>
-          <Button variant="contained" sx={{ m: "1rem" }}>
-            finish
-          </Button>
-        </div>
+        <Button variant="contained" sx={{ m: "1rem" }}>
+          finish
+        </Button>
       </Grid>
       <Grid
         item
@@ -68,7 +61,7 @@ const NewQuestions = () => {
           p: "1rem",
         }}
       >
-        <form>
+        <form style={{ border: "1px solid lightGrey", padding: "1rem" }}>
           <Typography variant="h3" sx={{ mt: "2rem" }}>
             Question
           </Typography>
@@ -90,19 +83,40 @@ const NewQuestions = () => {
 
           {!openQuestion && (
             <>
-              <Typography variant="h3" sx={{ mt: "2rem" }}>
+              <Typography variant="h3" sx={{ m: "2rem" }}>
                 Choose your answer
               </Typography>
-              <div>
-                <input type="radio" name="boolean-answer" ref={trueAnswerRef} />
-                <input
-                  type="radio"
-                  ref={falseAnswerRef}
-                  name="boolean-answer"
-                />
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-evenly",
+                }}
+              >
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <label htmlFor="true">True</label>
+                  <input
+                    type="radio"
+                    name="boolean-answer"
+                    id="true"
+                    style={{ height: "2rem", width: "2rem", margin: "2rem" }}
+                    ref={trueAnswerRef}
+                  />
+                </div>
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <label htmlFor="false">False</label>
+                  <input
+                    type="radio"
+                    name="boolean-answer"
+                    id="false"
+                    style={{ height: "2rem", width: "2rem", margin: "2rem" }}
+                  />
+                </div>
               </div>
             </>
           )}
+          <Button variant="contained" sx={{ m: "1rem" }} onClick={aa}>
+            next question
+          </Button>
         </form>
       </Grid>
       <Grid item xs={2}>
