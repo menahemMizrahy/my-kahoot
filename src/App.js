@@ -3,8 +3,8 @@ import { Navigate } from "react-router-dom";
 
 import HomePage from "./pages/start/HomePage";
 import NewGame from "./pages/new-game/NewGame";
-import NewQuestions from "./pages/new-game/new-questions/NewQuestions";
-import NewGameFinish from "./pages/new-game/new-game-finish/NewGameFinish";
+import NewQuestions from "./pages/new-game/questions/NewQuestions";
+import NewGameFinish from "./pages/new-game/finish/NewGameFinish";
 import MyPaper from "./layout/MyPaper";
 
 function App() {
