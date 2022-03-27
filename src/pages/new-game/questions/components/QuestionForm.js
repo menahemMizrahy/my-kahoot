@@ -15,7 +15,7 @@ const QuestioForm = (props) => {
       <MyInput {...question} fullWidth />
       {props.openQuestion && <OpenQuestion />}
       {!props.openQuestion && <BooleanQuestion />}
-      <Button variant="contained" sx={{ m: "1rem" }} onClick={aa}>
+      <Button variant="contained" sx={{ m: "1rem" }}>
         next question
       </Button>
     </form>

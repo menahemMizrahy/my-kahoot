@@ -1,12 +1,13 @@
 import { Typography } from "@mui/material";
-import MyInput from "../../../components/MyInput";
-import useInput from "../../../hooks/input-hook";
+import MyInput from "../../../../components/MyInput";
+import useInput from "../../../../hooks/input-hook";
 
 const OpenQuestion = (props) => {
   const correctAnswer = useInput("");
   const answer1 = useInput("");
   const answer2 = useInput("");
   const answer3 = useInput("");
+
   return (
     <div>
       <Typography variant="h3" sx={{ mt: "2rem" }}>
