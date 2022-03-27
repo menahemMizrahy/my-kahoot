@@ -1,7 +1,7 @@
 import { Button, Grid } from "@mui/material";
 import { useRef, useState } from "react";
-import QuestioForm from "./QuestionForm";
-import QuestionsCounterBadge from "./QuestionsCounterBadge";
+import QuestioForm from "./components/QuestionForm";
+import QuestionsCounterBadge from "./components/QuestionsCounterBadge";
 
 const NewQuestions = () => {
   const trueAnswerRef = useRef();

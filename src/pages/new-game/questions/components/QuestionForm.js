@@ -1,6 +1,6 @@
 import { Button, Typography } from "@mui/material";
-import MyInput from "../../../components/MyInput";
-import useInput from "../../../hooks/input-hook";
+import MyInput from "../../../../components/MyInput";
+import useInput from "../../../../hooks/input-hook";
 import BooleanQuestion from "./BooleanQuestion";
 import OpenQuestion from "./OpenQuestion";
 

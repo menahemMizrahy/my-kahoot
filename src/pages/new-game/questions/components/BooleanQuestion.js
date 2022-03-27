@@ -1,6 +1,8 @@
 import { Typography } from "@mui/material";
+import { useRef } from "react";
 
 const BooleanQuestion = (props) => {
+  const trueAnswerRef = useRef;
   return (
     <>
       <Typography variant="h3" sx={{ m: "2rem" }}>
