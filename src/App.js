@@ -6,7 +6,6 @@ import NewGame from "./pages/new-game/NewGame";
 import NewQuestions from "./pages/new-game/questions/NewQuestions";
 import NewGameFinish from "./pages/new-game/finish/NewGameFinish";
 import MyPaper from "./layout/MyPaper";
-import { NewGameContextProvider } from "./store/new-game-context";
 
 function App() {
   return (
@@ -17,11 +16,9 @@ function App() {
         <Route path="/home" element={<HomePage />} />
 
         <Route path="/new-game/*">
-          <NewGameContextProvider>
-            <Route path="" element={<NewGame />} />
-            <Route path="questions" element={<NewQuestions />} />
-            <Route path="finish" element={<NewGameFinish />} />
-          </NewGameContextProvider>
+          <Route path="" element={<NewGame />} />
+          <Route path="questions" element={<NewQuestions />} />
+          <Route path="finish" element={<NewGameFinish />} />
         </Route>
 
         <Route path="/wait" />

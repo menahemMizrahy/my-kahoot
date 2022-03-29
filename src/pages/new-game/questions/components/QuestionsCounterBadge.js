@@ -1,4 +1,8 @@
+import { useContext } from "react";
+import newGameContext from "../../../../store/new-game-context";
+
 const QuestionsCounterBadge = (props) => {
+  const newGameCtx = useContext(newGameContext);
   return (
     <div
       style={{
@@ -11,7 +15,7 @@ const QuestionsCounterBadge = (props) => {
         justifyContent: "center",
       }}
     >
-      {`# ${props.questionsCounter}`}
+      {`# ${newGameCtx.questions.length + 1}`}
     </div>
   );
 };

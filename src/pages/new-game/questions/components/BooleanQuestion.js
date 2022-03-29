@@ -1,8 +1,7 @@
 import { Typography } from "@mui/material";
-import { useRef } from "react";
+import { forwardRef } from "react";
 
-const BooleanQuestion = (props) => {
-  const trueAnswerRef = useRef;
+const BooleanQuestion = forwardRef((props, ref) => {
   return (
     <>
       <Typography variant="h3" sx={{ m: "2rem" }}>
@@ -21,7 +20,7 @@ const BooleanQuestion = (props) => {
             name="boolean-answer"
             id="true"
             style={{ height: "2rem", width: "2rem", margin: "2rem" }}
-            ref={trueAnswerRef}
+            ref={ref}
           />
         </div>
         <div style={{ display: "flex", alignItems: "center" }}>
@@ -36,6 +35,6 @@ const BooleanQuestion = (props) => {
       </div>
     </>
   );
-};
+});
 
 export default BooleanQuestion;

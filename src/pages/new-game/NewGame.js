@@ -1,7 +1,9 @@
 import { Button, Typography } from "@mui/material";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import MyInput from "../../components/MyInput";
 import useInput from "../../hooks/input-hook";
+import newGameContext from "../../store/new-game-context";
 
 const passwordValidation = (password) => {
   return /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]{8,}$/.test(password);
@@ -14,15 +16,31 @@ const confirmPassword = (firstPassword) => {
 };
 
 const NewGame = () => {
-  const gameName = useInput("");
-  const gameDescription = useInput("");
+  const newGameCtx = useContext(newGameContext);
+
+  const gameName = useInput("", (name) => name.trim().length);
+  const message = useInput("");
   const password = useInput("", passwordValidation);
   const passwordAgain = useInput("", confirmPassword(password.value));
+
+  const validateFileds = (event) => {
+    gameName.onBlur();
+    password.onBlur();
+    passwordAgain.onBlur();
+  };
 
   const navigate = useNavigate();
 
   const submitHandler = (event) => {
     event.preventDefault();
+
+    if (gameName.error || password.error || passwordAgain.error) return;
+
+    newGameCtx.initGame({
+      gameName: gameName.value,
+      message: message.value,
+      adminPassword: password.value,
+    });
 
     navigate("../questions");
   };
@@ -42,7 +60,7 @@ const NewGame = () => {
         >
           Anything you would like to tell the players before they start...
         </Typography>
-        <MyInput fullWidth {...gameDescription} />
+        <MyInput fullWidth {...message} />
       </div>
       <div style={{ display: "flex", flexDirection: "column" }}>
         <Typography variant="h6">Let's create a password:</Typography>
@@ -51,6 +69,7 @@ const NewGame = () => {
         <MyInput {...passwordAgain} />
         <Button
           type="submit"
+          onClick={validateFileds}
           variant="contained"
           sx={{
             mt: "1em",

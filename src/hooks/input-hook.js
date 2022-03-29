@@ -17,7 +17,12 @@ const useInput = (initialValue, validation) => {
   const valueIsValid = validation(value);
   const error = !valueIsValid && haseTuched;
 
-  return { value, onChange: changeHandler, onBlur: blurHandler, error };
+  return {
+    value,
+    onChange: changeHandler,
+    onBlur: blurHandler,
+    error,
+  };
 };
 
 export default useInput;

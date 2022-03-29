@@ -1,21 +1,17 @@
 import { Button, Grid } from "@mui/material";
-import { useRef, useState } from "react";
-import QuestioForm from "./components/QuestionForm";
+import { useContext, useState } from "react";
+import newGameContext from "../../../store/new-game-context";
+import QuestionForm from "./components/QuestionForm";
 import QuestionsCounterBadge from "./components/QuestionsCounterBadge";
 
 const NewQuestions = () => {
-  const trueAnswerRef = useRef();
+  const newGameCtx = useContext(newGameContext);
 
-  const [openQuestion, setOpenQuestion] = useState(true);
+  const [isOpenQuestion, setIsOpenQuestion] = useState(true);
   const questionTypeHandler = () => {
-    setOpenQuestion(!openQuestion);
+    setIsOpenQuestion(!isOpenQuestion);
   };
 
-  const aa = () => {
-    console.log(!!trueAnswerRef.current.checked);
-  };
-
-  let questionsCounter = 1;
   return (
     <Grid container sx={{ height: "80vh" }}>
       <Grid
@@ -27,7 +23,7 @@ const NewQuestions = () => {
           justifyContent: "space-between",
         }}
       >
-        <QuestionsCounterBadge questionsCounter={questionsCounter} />
+        <QuestionsCounterBadge />
         <Button variant="contained" onClick={questionTypeHandler}>
           Question type
         </Button>
@@ -43,7 +39,10 @@ const NewQuestions = () => {
           p: "1rem",
         }}
       >
-        <QuestioForm openQuestion={openQuestion} />
+        <QuestionForm
+          isOpenQuestion={isOpenQuestion}
+          key={newGameCtx.questions.length}
+        />
       </Grid>
       <Grid item xs={2} />
     </Grid>
