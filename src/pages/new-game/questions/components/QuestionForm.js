@@ -12,25 +12,52 @@ const QuestionForm = (props) => {
 
   const booleanAnswerRef = useRef();
 
-  const question = useInput("");
-  const correctAnswer = useInput("");
-  const answer1 = useInput("");
-  const answer2 = useInput("");
-  const answer3 = useInput("");
+  const inputValidate = (value) => value.trim().length;
 
-  const addQuestionHandler = () => {
+  const question = useInput("", inputValidate);
+  const correctAnswer = useInput("", inputValidate);
+  const answer1 = useInput("", inputValidate);
+  const answer2 = useInput("", inputValidate);
+  const answer3 = useInput("", inputValidate);
+
+  const validateFilds = () => {
+    console.log("val");
+    question.onBlur();
+    correctAnswer.onBlur();
+    answer1.onBlur();
+    answer2.onBlur();
+    answer3.onBlur();
+  };
+
+  const submitHandler = (event) => {
+    event.preventDefault();
+
+    console.log("submit");
+    if (
+      question.error ||
+      correctAnswer.error ||
+      answer1.error ||
+      answer2.error ||
+      answer3.error
+    ) {
+      return;
+    }
+
     newGameCtx.addQuestion({
       question: question.value,
       isOpenQuestion,
       correctAnswer: isOpenQuestion
         ? correctAnswer.value
         : booleanAnswerRef.current.checked,
-      rest: [],
+      rest: isOpenQuestion ? [answer1.value, answer2.value, answer3.value] : [],
     });
   };
 
   return (
-    <form style={{ border: "1px solid lightGrey", padding: "1rem" }}>
+    <form
+      style={{ border: "1px solid lightGrey", padding: "1rem" }}
+      onSubmit={submitHandler}
+    >
       <Typography variant="h3" sx={{ mt: "2rem" }}>
         Question
       </Typography>
@@ -51,9 +78,10 @@ const QuestionForm = (props) => {
       )}
       {!isOpenQuestion && <BooleanQuestion ref={booleanAnswerRef} />}
       <Button
+        type="submit"
         variant="contained"
         sx={{ m: "1rem" }}
-        onClick={addQuestionHandler}
+        onClick={validateFilds}
       >
         next question
       </Button>

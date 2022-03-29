@@ -23,7 +23,7 @@ const NewGame = () => {
   const password = useInput("", passwordValidation);
   const passwordAgain = useInput("", confirmPassword(password.value));
 
-  const validateFileds = (event) => {
+  const validateFileds = () => {
     gameName.onBlur();
     password.onBlur();
     passwordAgain.onBlur();
