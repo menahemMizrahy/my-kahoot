@@ -27,9 +27,6 @@ const NewQuestions = () => {
         <Button variant="contained" onClick={questionTypeHandler}>
           Question type
         </Button>
-        <Button variant="contained" sx={{ m: "1rem" }}>
-          finish
-        </Button>
       </Grid>
       <Grid
         item

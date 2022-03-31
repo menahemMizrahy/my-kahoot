@@ -1,5 +1,6 @@
 import { Button, Typography } from "@mui/material";
 import { useRef, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import MyInput from "../../../../components/MyInput";
 import useInput from "../../../../hooks/input-hook";
 import newGameContext from "../../../../store/new-game-context";
@@ -12,6 +13,8 @@ const QuestionForm = (props) => {
 
   const booleanAnswerRef = useRef();
 
+  const navigate = useNavigate();
+
   const inputValidate = (value) => value.trim().length;
 
   const question = useInput("", inputValidate);
@@ -21,18 +24,23 @@ const QuestionForm = (props) => {
   const answer3 = useInput("", inputValidate);
 
   const validateFilds = () => {
-    console.log("val");
     question.onBlur();
+    if (!isOpenQuestion) {
+      return;
+    }
     correctAnswer.onBlur();
     answer1.onBlur();
     answer2.onBlur();
     answer3.onBlur();
   };
 
+  const finishHandler = () => {
+    navigate("../finish");
+  };
+
   const submitHandler = (event) => {
     event.preventDefault();
 
-    console.log("submit");
     if (
       question.error ||
       correctAnswer.error ||
@@ -84,6 +92,9 @@ const QuestionForm = (props) => {
         onClick={validateFilds}
       >
         next question
+      </Button>
+      <Button variant="contained" sx={{ m: "1rem" }} onClick={finishHandler}>
+        finish
       </Button>
     </form>
   );

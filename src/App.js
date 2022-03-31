@@ -11,7 +11,7 @@ function App() {
   return (
     <MyPaper>
       <Routes>
-        <Route path="/" element={<Navigate to="/home" />} />
+        <Route path="/*" element={<Navigate to="/home" />} />
 
         <Route path="/home" element={<HomePage />} />
 
