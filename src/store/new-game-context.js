@@ -55,8 +55,8 @@ export const NewGameContextProvider = (props) => {
         initGame(initGameValue) {
           dispatch({ type: "INIT_GAME", payload: initGameValue });
         },
-        addQuestion(questions) {
-          dispatch({ type: "ADD_QUESTION", payload: questions });
+        addQuestion(question) {
+          dispatch({ type: "ADD_QUESTION", payload: question });
         },
         addGameCode(gameCode) {
           dispatch({ type: "ADD_GAME_CODE", payload: gameCode });

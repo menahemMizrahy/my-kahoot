@@ -11,6 +11,7 @@ const NewQuestions = () => {
   const questionTypeHandler = () => {
     setIsOpenQuestion(!isOpenQuestion);
   };
+  const submitHandler = (question) => newGameCtx.addQuestion(question);
 
   return (
     <Grid container sx={{ height: "80vh" }}>
@@ -38,6 +39,7 @@ const NewQuestions = () => {
       >
         <QuestionForm
           isOpenQuestion={isOpenQuestion}
+          onSubmit={submitHandler}
           key={newGameCtx.questions.length}
         />
       </Grid>
