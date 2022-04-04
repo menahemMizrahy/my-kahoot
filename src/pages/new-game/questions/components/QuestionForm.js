@@ -1,10 +1,11 @@
 import { Button, Typography } from "@mui/material";
-import { useRef, useContext } from "react";
+import { useRef, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MyInput from "../../../../components/MyInput";
 import useInput from "../../../../hooks/input-hook";
 import newGameContext from "../../../../store/new-game-context";
 import BooleanQuestion from "./BooleanQuestion";
+import OpenQuestionForm from "./OpenQuestionForm";
 
 const QuestionForm = (props) => {
   const newGameCtx = useContext(newGameContext);
@@ -12,6 +13,7 @@ const QuestionForm = (props) => {
   const { isOpenQuestion } = props;
 
   const booleanAnswerRef = useRef();
+  const [booleanAnswerIsTuched, setBooleanAnswerIsTuched] = useState(false);
 
   const navigate = useNavigate();
 
@@ -32,10 +34,6 @@ const QuestionForm = (props) => {
     answer1.onBlur();
     answer2.onBlur();
     answer3.onBlur();
-  };
-
-  const finishHandler = () => {
-    navigate("../finish");
   };
 
   const submitHandler = (event) => {
@@ -61,6 +59,13 @@ const QuestionForm = (props) => {
     });
   };
 
+  const finishHandler = () => {
+    // if(question.value) {
+    //   if(isOpenQuestion && )
+    // }
+    navigate("../finish");
+  };
+
   return (
     <form
       style={{ border: "1px solid lightGrey", padding: "1rem" }}
@@ -70,7 +75,7 @@ const QuestionForm = (props) => {
         Question
       </Typography>
       <MyInput {...question} fullWidth />
-      {isOpenQuestion && (
+      {/* {isOpenQuestion && (
         <div>
           <Typography variant="h3" sx={{ mt: "2rem" }}>
             Correct Answer
@@ -83,7 +88,8 @@ const QuestionForm = (props) => {
           <MyInput {...answer2} fullWidth />
           <MyInput {...answer3} fullWidth />
         </div>
-      )}
+      )} */}
+      {isOpenQuestion && <OpenQuestionForm />}
       {!isOpenQuestion && <BooleanQuestion ref={booleanAnswerRef} />}
       <Button
         type="submit"
