@@ -9,6 +9,7 @@ const BooleanQuestion = ({ question, isOpenQuestion, onSubmit, navigate }) => {
     question.onBlur();
     setAnswerError(answer === null);
   };
+
   const answerCheckedHandler = (event) => {
     setAnswerError(false);
     setAnswer(event.target.value);
@@ -24,9 +25,11 @@ const BooleanQuestion = ({ question, isOpenQuestion, onSubmit, navigate }) => {
       });
     }
   };
+
   const finishHandler = () => {
     navigate("../finish");
   };
+
   return (
     <form onSubmit={submitHandler}>
       <Typography variant="h3" sx={{ m: "2rem" }}>
