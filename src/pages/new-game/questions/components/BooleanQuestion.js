@@ -27,6 +27,10 @@ const BooleanQuestion = ({ question, isOpenQuestion, onSubmit, navigate }) => {
   };
 
   const finishHandler = () => {
+    if (!question.value) {
+      question.onBlur();
+      return;
+    }
     navigate("../finish");
   };
 

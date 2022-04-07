@@ -2,7 +2,7 @@ import { createContext, useReducer } from "react";
 
 const initValue = {
   initGameValue: {
-    gameName: "",
+    gameName: "A New Game",
     message: "",
     adminPassword: "",
   },
