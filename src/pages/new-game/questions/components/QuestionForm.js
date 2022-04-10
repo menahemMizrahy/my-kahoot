@@ -10,11 +10,15 @@ const QuestionForm = ({ isOpenQuestion, onSubmit }) => {
 
   const inputValidate = (value) => value.trim().length;
 
-  const question = useInput("", inputValidate);
+  const { resetInput: resetQuestion, ...question } = useInput(
+    "",
+    inputValidate
+  );
 
   const formProps = {
     question,
     isOpenQuestion,
+    resetQuestion,
     onSubmit,
     navigate,
   };

@@ -40,7 +40,6 @@ const NewQuestions = () => {
         <QuestionForm
           isOpenQuestion={isOpenQuestion}
           onSubmit={submitHandler}
-          key={newGameCtx.questions.length}
         />
       </Grid>
       <Grid item xs={2} />

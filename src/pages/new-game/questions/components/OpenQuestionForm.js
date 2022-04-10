@@ -4,11 +4,20 @@ import useInput from "../../../../hooks/input-hook";
 
 const inputValidate = (value) => value.trim().length;
 
-const OpenQuestionForm = ({ question, isOpenQuestion, onSubmit, navigate }) => {
-  const correctAnswer = useInput("", inputValidate);
-  const answer1 = useInput("", inputValidate);
-  const answer2 = useInput("", inputValidate);
-  const answer3 = useInput("", inputValidate);
+const OpenQuestionForm = ({
+  question,
+  isOpenQuestion,
+  onSubmit,
+  navigate,
+  resetQuestion,
+}) => {
+  const { resetInput: resetCorrectAnswer, ...correctAnswer } = useInput(
+    "",
+    inputValidate
+  );
+  const { resetInput: resetAnswer1, ...answer1 } = useInput("", inputValidate);
+  const { resetInput: resetAnswer2, ...answer2 } = useInput("", inputValidate);
+  const { resetInput: resetAnswer3, ...answer3 } = useInput("", inputValidate);
 
   const validateFileds = () => {
     question.onBlur();
@@ -39,8 +48,13 @@ const OpenQuestionForm = ({ question, isOpenQuestion, onSubmit, navigate }) => {
       correctAnswer: correctAnswer.value,
       rest: [answer1.value, answer2.value, answer3.value],
     });
+    resetAnswer1();
+    resetAnswer2();
+    resetAnswer3();
+    resetCorrectAnswer();
+    resetQuestion();
   };
-
+  console.log(question);
   return (
     <form onSubmit={submitHandler}>
       <Typography variant="h3" sx={{ mt: "2rem" }}>

@@ -9,7 +9,11 @@ const useInput = (initialValue, validation) => {
   const [haseTuched, setHaseTuched] = useState(false);
 
   if (!validation) {
-    return { value, onChange: changeHandler };
+    return {
+      value,
+      onChange: changeHandler,
+      resetInput: () => setValue(initialValue),
+    };
   }
 
   const blurHandler = () => setHaseTuched(true);
@@ -22,6 +26,10 @@ const useInput = (initialValue, validation) => {
     onChange: changeHandler,
     onBlur: blurHandler,
     error,
+    resetInput: () => {
+      setHaseTuched(false);
+      setValue(initialValue);
+    },
   };
 };
 

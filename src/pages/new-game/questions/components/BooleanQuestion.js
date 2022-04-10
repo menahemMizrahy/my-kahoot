@@ -1,7 +1,13 @@
 import { useState } from "react";
 import { Button, Typography } from "@mui/material";
 
-const BooleanQuestion = ({ question, isOpenQuestion, onSubmit, navigate }) => {
+const BooleanQuestion = ({
+  question,
+  isOpenQuestion,
+  onSubmit,
+  navigate,
+  resetQuestion,
+}) => {
   const [answer, setAnswer] = useState(null);
   const [answerError, setAnswerError] = useState(false);
 
@@ -17,13 +23,15 @@ const BooleanQuestion = ({ question, isOpenQuestion, onSubmit, navigate }) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    if (!answerError && !question.error) {
-      onSubmit({
-        question: question.value,
-        isOpenQuestion,
-        correctAnswer: answer,
-      });
+    if (answerError || question.error) {
+      return;
     }
+    onSubmit({
+      question: question.value,
+      isOpenQuestion,
+      correctAnswer: answer,
+    });
+    resetQuestion();
   };
 
   const finishHandler = () => {

@@ -18,10 +18,19 @@ const confirmPassword = (firstPassword) => {
 const NewGame = () => {
   const newGameCtx = useContext(newGameContext);
 
-  const gameName = useInput("", (name) => name.trim().length);
-  const message = useInput("");
-  const password = useInput("", passwordValidation);
-  const passwordAgain = useInput("", confirmPassword(password.value));
+  const { resetInput: resetName, ...gameName } = useInput(
+    "",
+    (name) => name.trim().length
+  );
+  const { resetInput: resetMessage, ...message } = useInput("");
+  const { resetInput: resetPassword, ...password } = useInput(
+    "",
+    passwordValidation
+  );
+  const { resetInput: resetPasswordAgain, ...passwordAgain } = useInput(
+    "",
+    confirmPassword(password.value)
+  );
 
   const validateFileds = () => {
     gameName.onBlur();

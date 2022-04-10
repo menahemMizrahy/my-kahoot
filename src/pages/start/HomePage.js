@@ -16,7 +16,7 @@ const HomePage = () => {
   const adminPassword = usePassword();
 
   const [enterAsAdmin, setEnterAsAdmin] = useState(false);
-  const gameCodeData = useInput(
+  const { resetInput, ...gameCodeData } = useInput(
     querySearch.get("gameCode") || "",
     (value) => value.length === 6
   );
