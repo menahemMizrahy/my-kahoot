@@ -54,7 +54,7 @@ const OpenQuestionForm = ({
     resetCorrectAnswer();
     resetQuestion();
   };
-  console.log(question);
+
   return (
     <form onSubmit={submitHandler}>
       <Typography variant="h3" sx={{ mt: "2rem" }}>

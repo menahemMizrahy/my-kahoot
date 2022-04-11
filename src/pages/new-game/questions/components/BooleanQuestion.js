@@ -1,6 +1,11 @@
 import { useState } from "react";
 import { Button, Typography } from "@mui/material";
 
+const initialAnswers = {
+  trueAnswer: false,
+  falseAnswer: false,
+};
+
 const BooleanQuestion = ({
   question,
   isOpenQuestion,
@@ -8,17 +13,21 @@ const BooleanQuestion = ({
   navigate,
   resetQuestion,
 }) => {
-  const [answer, setAnswer] = useState(null);
+  const [checked, setChecked] = useState(initialAnswers);
   const [answerError, setAnswerError] = useState(false);
-
-  const validateFileds = () => {
-    question.onBlur();
-    setAnswerError(answer === null);
-  };
 
   const answerCheckedHandler = (event) => {
     setAnswerError(false);
-    setAnswer(event.target.value);
+    setChecked(() => {
+      return { ...initialAnswers, [event.target.value]: true };
+    });
+  };
+
+  const validateFileds = () => {
+    question.onBlur();
+    setAnswerError(
+      checked.falseAnswer === false && checked.trueAnswer === false
+    );
   };
 
   const submitHandler = (event) => {
@@ -29,9 +38,10 @@ const BooleanQuestion = ({
     onSubmit({
       question: question.value,
       isOpenQuestion,
-      correctAnswer: answer,
+      correctAnswer: checked.trueAnswer,
     });
     resetQuestion();
+    setChecked(initialAnswers);
   };
 
   const finishHandler = () => {
@@ -52,16 +62,17 @@ const BooleanQuestion = ({
           display: "flex",
           justifyContent: "space-evenly",
         }}
-        onChange={answerCheckedHandler}
       >
         <div style={{ display: "flex", alignItems: "center" }}>
-          <label htmlFor="true" style={{ color: answerError && "red" }}>
+          <label htmlFor="trueAnswer" style={{ color: answerError && "red" }}>
             True
           </label>
           <input
             type="radio"
             name="boolean-answer"
-            value="true"
+            value="trueAnswer"
+            checked={checked.trueAnswer}
+            onChange={answerCheckedHandler}
             style={{
               height: "2rem",
               width: "2rem",
@@ -70,13 +81,15 @@ const BooleanQuestion = ({
           />
         </div>
         <div style={{ display: "flex", alignItems: "center" }}>
-          <label htmlFor="false" style={{ color: answerError && "red" }}>
+          <label htmlFor="falseAnswer" style={{ color: answerError && "red" }}>
             False
           </label>
           <input
             type="radio"
             name="boolean-answer"
-            value="false"
+            value="falseAnswer"
+            checked={checked.falseAnswer}
+            onChange={answerCheckedHandler}
             style={{ height: "2rem", width: "2rem", margin: "2rem" }}
           />
         </div>
