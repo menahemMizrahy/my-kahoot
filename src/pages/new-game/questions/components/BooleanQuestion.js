@@ -1,6 +1,5 @@
-import { useState } from "react";
 import { Button, Typography } from "@mui/material";
-import useBooleanQuestion from "./useBooleanQuestion";
+import useBooleanQuestion from "./booleanQuestion-hook";
 
 const BooleanQuestion = (props) => {
   const {
