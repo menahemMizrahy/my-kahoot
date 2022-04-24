@@ -44,6 +44,7 @@ const newGameReducer = (state, action) => {
 };
 
 const newGameContext = createContext(initValue);
+export default newGameContext;
 
 export const NewGameContextProvider = (props) => {
   const [state, dispatch] = useReducer(newGameReducer, initValue);
@@ -73,5 +74,3 @@ export const NewGameContextProvider = (props) => {
     </newGameContext.Provider>
   );
 };
-
-export default newGameContext;
