@@ -1,58 +1,31 @@
-import { createContext, useReducer } from "react";
-
-const initValue = {
-  initGameValue: {
-    gameName: "A New Game",
-    message: "",
-    adminPassword: "",
-  },
-  initGame() {},
-  questions: [],
-  addQuestion() {},
-  gameCode: 0,
-  addGameCode() {},
-  reset() {},
-  restQuestions() {},
-};
-
-const newGameReducer = (state, action) => {
-  const newState = { ...state };
-  switch (action.type) {
-    case "INIT_GAME": {
-      newState.initGameValue = action.payload;
-      break;
-    }
-    case "ADD_QUESTION": {
-      newState.questions.push(action.payload);
-      break;
-    }
-    case "ADD_GAME_CODE": {
-      newState.gameCode = action.payload;
-      break;
-    }
-    case "RESET_QUESTIONS": {
-      newState.questions.push(action.payload);
-      break;
-    }
-    case "RESET": {
-      return initValue;
-    }
-    default:
-      break;
-  }
-  return newState;
-};
+import { createContext, useEffect, useReducer } from "react";
+import { initValue, newGameReducer } from "./new-game-reducer";
 
 const newGameContext = createContext(initValue);
 export default newGameContext;
 
 export const NewGameContextProvider = (props) => {
-  const [state, dispatch] = useReducer(newGameReducer, initValue);
-  console.log(state.questions);
+  const [newGameState, dispatch] = useReducer(newGameReducer, initValue, () => {
+    const localNewGameState = localStorage.getItem("newGameState");
+
+    if (!localNewGameState) {
+      console.log("no storage");
+      return initValue;
+    } else {
+      return JSON.parse(localNewGameState);
+    }
+  });
+
+  useEffect(() => {
+    localStorage.setItem("newGameState", JSON.stringify(newGameState));
+  }, [newGameState]);
+
+  console.log(JSON.stringify(newGameState));
+
   return (
     <newGameContext.Provider
       value={{
-        ...state,
+        ...newGameState,
         initGame(initGameValue) {
           dispatch({ type: "INIT_GAME", payload: initGameValue });
         },
