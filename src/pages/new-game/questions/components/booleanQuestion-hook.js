@@ -49,6 +49,7 @@ const useBooleanQuestion = ({
     }
     navigate("../finish");
   };
+
   return {
     submitHandler,
     checked,
