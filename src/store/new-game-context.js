@@ -14,6 +14,8 @@ export const NewGameContextProvider = (props) => {
     localStorage.setItem("newGameState", JSON.stringify(newGameState));
   }, [newGameState]);
 
+  console.log(newGameState.questions);
+
   return (
     <newGameContext.Provider
       value={{

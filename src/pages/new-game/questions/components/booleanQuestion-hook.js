@@ -28,11 +28,7 @@ const useBooleanQuestion = ({
     );
   };
 
-  const submitHandler = (event) => {
-    event.preventDefault();
-    if (answerError || question.error) {
-      return;
-    }
+  const submitingQuestion = () => {
     onSubmit({
       question: question.value,
       isOpenQuestion,
@@ -42,12 +38,25 @@ const useBooleanQuestion = ({
     setChecked(initialAnswers);
   };
 
-  const finishHandler = () => {
-    if (!question.value) {
-      question.onBlur();
+  const submitHandler = (event) => {
+    if (event) {
+      event.preventDefault();
+    }
+    if (answerError || question.error) {
       return;
     }
-    navigate("../finish");
+    submitingQuestion();
+  };
+
+  const finishHandler = () => {
+    if (question.value) {
+      if (checked.falseAnswer === false && checked.trueAnswer === false) {
+        validateFileds();
+        return;
+      }
+      submitHandler();
+    }
+    navigate("../finish", { replace: true });
   };
 
   return {
