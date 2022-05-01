@@ -6,21 +6,13 @@ export default newGameContext;
 
 export const NewGameContextProvider = (props) => {
   const [newGameState, dispatch] = useReducer(newGameReducer, initValue, () => {
-    const localNewGameState = localStorage.getItem("newGameState");
-
-    if (!localNewGameState) {
-      console.log("no storage");
-      return initValue;
-    } else {
-      return JSON.parse(localNewGameState);
-    }
+    const localData = JSON.parse(localStorage.getItem("newGameState"));
+    return localData || initValue;
   });
 
   useEffect(() => {
     localStorage.setItem("newGameState", JSON.stringify(newGameState));
   }, [newGameState]);
-
-  console.log(JSON.stringify(newGameState));
 
   return (
     <newGameContext.Provider
