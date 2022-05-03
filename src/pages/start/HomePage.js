@@ -16,7 +16,9 @@ const HomePage = () => {
   const adminPassword = usePassword();
 
   const [enterAsAdmin, setEnterAsAdmin] = useState(false);
+  //excluding the reset function from the game code states for easyer Forward to the
   const { resetInput, ...gameCodeData } = useInput(
+    //setting the default game code if passed to the URL via a link
     querySearch.get("gameCode") || "",
     (value) => value.length === 6
   );
@@ -27,7 +29,6 @@ const HomePage = () => {
 
   const enterAsAdminHandler = () => {
     setEnterAsAdmin(true);
-    //
   };
 
   const createGameHandler = () => {
@@ -71,7 +72,7 @@ const HomePage = () => {
           }}
           onClick={gameStartHandler}
         >
-          <span style={{}}>Start Game!</span>
+          start game!
         </Button>
         <Button
           variant="contained"

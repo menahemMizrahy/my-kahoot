@@ -3,6 +3,7 @@ import MyInput from "../../components/MyInput";
 import useNewGame from "./newGame-hook";
 
 const NewGame = () => {
+  //spliting the logic and functions to a separated file
   const {
     submitHandler,
     gameName,
@@ -18,7 +19,7 @@ const NewGame = () => {
         <Typography variant="h4" sx={{ textAlign: "center" }}>
           Name your game!
         </Typography>
-        <MyInput fullWidth {...gameName} />
+        <MyInput fullWidth {...gameName} label="Game Name" />
       </div>
       <div style={{ margin: "6rem 0" }}>
         <Typography
@@ -27,13 +28,13 @@ const NewGame = () => {
         >
           Anything you would like to tell the players before they start...
         </Typography>
-        <MyInput fullWidth {...message} />
+        <MyInput fullWidth {...message} label="A Message" />
       </div>
       <div style={{ display: "flex", flexDirection: "column" }}>
         <Typography variant="h6">Let's create a password:</Typography>
-        <MyInput sx={{ mb: "1rem" }} {...password} />
+        <MyInput sx={{ mb: "1rem" }} {...password} label="Password" />
         <Typography variant="h6">And again</Typography>
-        <MyInput {...passwordAgain} />
+        <MyInput {...passwordAgain} label="The Password Again" />
         <Button
           type="submit"
           onClick={validateFileds}
