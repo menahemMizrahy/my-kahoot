@@ -4,6 +4,7 @@ const useBooleanQuestion = ({
   question,
   isOpenQuestion,
   onSubmit,
+  onFinish,
   navigate,
   resetQuestion,
 }) => {
@@ -28,7 +29,7 @@ const useBooleanQuestion = ({
     );
   };
 
-  const submitingQuestion = () => {
+  const submiting = () => {
     onSubmit({
       question: question.value,
       isOpenQuestion,
@@ -39,24 +40,19 @@ const useBooleanQuestion = ({
   };
 
   const submitHandler = (event) => {
-    if (event) {
-      event.preventDefault();
-    }
+    event.preventDefault();
     if (answerError || question.error) {
       return;
     }
-    submitingQuestion();
+    submiting();
+  };
+
+  const validateValues = () => {
+    return checked.falseAnswer === false && checked.trueAnswer === false;
   };
 
   const finishHandler = () => {
-    if (question.value) {
-      if (checked.falseAnswer === false && checked.trueAnswer === false) {
-        validateFileds();
-        return;
-      }
-      submitHandler();
-    }
-    navigate("../finish", { replace: true });
+    onFinish(validateValues, validateFileds, submiting);
   };
 
   return {

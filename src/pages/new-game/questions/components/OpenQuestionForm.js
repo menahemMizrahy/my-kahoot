@@ -36,6 +36,9 @@ const OpenQuestionForm = (props) => {
       <Button variant="contained" sx={{ m: "1rem" }} onClick={finishHandler}>
         finish
       </Button>
+      {props.enoughQuestionsError && (
+        <p style={{ color: "red" }}>Not Enough Questions!</p>
+      )}
     </form>
   );
 };

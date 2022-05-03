@@ -1,6 +1,6 @@
 export const initValue = {
   initGameValue: {
-    gameName: "A New Game",
+    gameName: "",
     message: "",
     adminPassword: "",
   },

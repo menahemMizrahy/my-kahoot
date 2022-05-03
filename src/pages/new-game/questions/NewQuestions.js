@@ -1,17 +1,13 @@
 import { Button, Grid } from "@mui/material";
-import { useContext, useState } from "react";
-import newGameContext from "../../../store/new-game-context";
+import { useState } from "react";
 import QuestionForm from "./components/QuestionForm";
 import QuestionsCounterBadge from "./components/QuestionsCounterBadge";
 
 const NewQuestions = () => {
-  const newGameCtx = useContext(newGameContext);
-
   const [isOpenQuestion, setIsOpenQuestion] = useState(true);
   const questionTypeHandler = () => {
     setIsOpenQuestion(!isOpenQuestion);
   };
-  const submitHandler = (question) => newGameCtx.addQuestion(question);
 
   return (
     <Grid container sx={{ height: "80vh" }}>
@@ -37,10 +33,7 @@ const NewQuestions = () => {
           p: "1rem",
         }}
       >
-        <QuestionForm
-          isOpenQuestion={isOpenQuestion}
-          onSubmit={submitHandler}
-        />
+        <QuestionForm isOpenQuestion={isOpenQuestion} />
       </Grid>
       <Grid item xs={2} />
     </Grid>

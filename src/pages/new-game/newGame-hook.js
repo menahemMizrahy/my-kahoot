@@ -17,16 +17,18 @@ const useNewGame = () => {
   const newGameCtx = useContext(newGameContext);
 
   const { resetInput: resetName, ...gameName } = useInput(
-    "",
+    newGameCtx.initGameValue.gameName || "",
     (name) => name.trim().length
   );
-  const { resetInput: resetMessage, ...message } = useInput("");
+  const { resetInput: resetMessage, ...message } = useInput(
+    newGameCtx.initGameValue.message || ""
+  );
   const { resetInput: resetPassword, ...password } = useInput(
-    "",
+    newGameCtx.initGameValue.adminPassword || "",
     passwordValidation
   );
   const { resetInput: resetPasswordAgain, ...passwordAgain } = useInput(
-    "",
+    newGameCtx.initGameValue.adminPassword || "",
     confirmPassword(password.value)
   );
 

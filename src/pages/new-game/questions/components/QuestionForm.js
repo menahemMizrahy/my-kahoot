@@ -1,11 +1,13 @@
+import { useContext, useEffect, useState } from "react";
 import { Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import newGameContext from "../../../../store/new-game-context";
 import MyInput from "../../../../components/MyInput";
 import useInput from "../../../../hooks/input-hook";
 import BooleanQuestion from "./BooleanQuestion";
 import OpenQuestionForm from "./OpenQuestionForm";
 
-const QuestionForm = ({ isOpenQuestion, onSubmit }) => {
+const QuestionForm = ({ isOpenQuestion }) => {
   const navigate = useNavigate();
 
   const inputValidate = (value) => value.trim().length;
@@ -15,12 +17,38 @@ const QuestionForm = ({ isOpenQuestion, onSubmit }) => {
     inputValidate
   );
 
+  const [enoughQuestionsError, setEnoughQuestionsError] = useState(false);
+
+  const newGameCtx = useContext(newGameContext);
+  const onSubmit = (question) => newGameCtx.addQuestion(question);
+
+  const onFinish = (validateValues, validateFileds, submiting) => {
+    if (newGameCtx.questions.length < 1) {
+      setEnoughQuestionsError(true);
+      return;
+    }
+    if (question.value) {
+      if (validateValues) {
+        validateFileds();
+        return;
+      }
+      submiting();
+    }
+    navigate("../finish", { replace: true });
+  };
+
+  useEffect(() => {
+    setEnoughQuestionsError(false);
+  }, [newGameCtx]);
+
   const formProps = {
     question,
     isOpenQuestion,
     resetQuestion,
     onSubmit,
+    onFinish,
     navigate,
+    enoughQuestionsError,
   };
 
   return (

@@ -6,6 +6,7 @@ const useOpenQuestionForm = ({
   question,
   isOpenQuestion,
   onSubmit,
+  onFinish,
   navigate,
   resetQuestion,
 }) => {
@@ -25,8 +26,28 @@ const useOpenQuestionForm = ({
     answer3.onBlur();
   };
 
-  const finishHandler = () => {
-    navigate("../finish");
+  const validateValues = () => {
+    return (
+      inputValidate(question.value) &&
+      inputValidate(correctAnswer.value) &&
+      inputValidate(answer1.value) &&
+      inputValidate(answer2.value) &&
+      inputValidate(answer3.value)
+    );
+  };
+
+  const submiting = () => {
+    onSubmit({
+      question: question.value,
+      isOpenQuestion,
+      correctAnswer: correctAnswer.value,
+      rest: [answer1.value, answer2.value, answer3.value],
+    });
+    resetAnswer1();
+    resetAnswer2();
+    resetAnswer3();
+    resetCorrectAnswer();
+    resetQuestion();
   };
 
   const submitHandler = (event) => {
@@ -40,18 +61,13 @@ const useOpenQuestionForm = ({
     ) {
       return;
     }
-    onSubmit({
-      question: question.value,
-      isOpenQuestion,
-      correctAnswer: correctAnswer.value,
-      rest: [answer1.value, answer2.value, answer3.value],
-    });
-    resetAnswer1();
-    resetAnswer2();
-    resetAnswer3();
-    resetCorrectAnswer();
-    resetQuestion();
+    submiting();
   };
+
+  const finishHandler = () => {
+    onFinish(validateValues, validateFileds, submiting);
+  };
+
   return {
     finishHandler,
     validateFileds,
