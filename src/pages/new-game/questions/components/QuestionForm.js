@@ -8,6 +8,7 @@ import BooleanQuestion from "./BooleanQuestion";
 import OpenQuestionForm from "./OpenQuestionForm";
 
 const QuestionForm = ({ isOpenQuestion }) => {
+  const newGameCtx = useContext(newGameContext);
   const navigate = useNavigate();
 
   const inputValidate = (value) => value.trim().length;
@@ -17,18 +18,16 @@ const QuestionForm = ({ isOpenQuestion }) => {
     inputValidate
   );
 
-  const [enoughQuestionsError, setEnoughQuestionsError] = useState(false);
-
-  const newGameCtx = useContext(newGameContext);
   const onSubmit = (question) => newGameCtx.addQuestion(question);
 
+  const [enoughQuestionsError, setEnoughQuestionsError] = useState(false);
   const onFinish = (validateValues, validateFileds, submiting) => {
-    if (newGameCtx.questions.length < 1) {
+    if (newGameCtx.questions.length < 2) {
       setEnoughQuestionsError(true);
       return;
     }
     if (question.value) {
-      if (validateValues) {
+      if (!validateValues) {
         validateFileds();
         return;
       }
@@ -47,7 +46,6 @@ const QuestionForm = ({ isOpenQuestion }) => {
     resetQuestion,
     onSubmit,
     onFinish,
-    navigate,
     enoughQuestionsError,
   };
 

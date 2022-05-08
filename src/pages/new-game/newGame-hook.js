@@ -4,9 +4,10 @@ import useInput from "../../hooks/input-hook";
 import newGameContext from "../../store/new-game-context";
 
 const passwordValidation = (password) => {
+  //the password must contain at list one uppercase letter, one lowercase letter and one number, and must be at list 8 characters
   return /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]{8,}$/.test(password);
 };
-
+//wil recive the first password and return the comparence function
 const confirmPassword = (firstPassword) => {
   return (secondPassword) => {
     return firstPassword === secondPassword;
@@ -15,13 +16,14 @@ const confirmPassword = (firstPassword) => {
 
 const useNewGame = () => {
   const newGameCtx = useContext(newGameContext);
-
+  //excluding the reset functions for easyer forward
+  //assigning the values if already exist in the context
   const { resetInput: resetName, ...gameName } = useInput(
     newGameCtx.initGameValue.gameName || "",
     (name) => name.trim().length
   );
   const { resetInput: resetMessage, ...message } = useInput(
-    newGameCtx.initGameValue.message || ""
+    newGameCtx.initGameValue.message || "" //optional
   );
   const { resetInput: resetPassword, ...password } = useInput(
     newGameCtx.initGameValue.adminPassword || "",
@@ -31,7 +33,7 @@ const useNewGame = () => {
     newGameCtx.initGameValue.adminPassword || "",
     confirmPassword(password.value)
   );
-
+  //force 'thuching' in the all fileds to ditect errors before submiting
   const validateFileds = () => {
     gameName.onBlur();
     password.onBlur();

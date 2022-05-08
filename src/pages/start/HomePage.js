@@ -16,7 +16,7 @@ const HomePage = () => {
   const adminPassword = usePassword();
 
   const [enterAsAdmin, setEnterAsAdmin] = useState(false);
-  //excluding the reset function from the game code states for easyer Forward to the
+  //excluding the reset function from the game code states for easyer forward to the MyInput component
   const { resetInput, ...gameCodeData } = useInput(
     //setting the default game code if passed to the URL via a link
     querySearch.get("gameCode") || "",

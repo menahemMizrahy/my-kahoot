@@ -5,7 +5,6 @@ const useBooleanQuestion = ({
   isOpenQuestion,
   onSubmit,
   onFinish,
-  navigate,
   resetQuestion,
 }) => {
   const initialAnswers = {

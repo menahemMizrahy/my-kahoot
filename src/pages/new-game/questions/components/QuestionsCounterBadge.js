@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import newGameContext from "../../../../store/new-game-context";
 
-const QuestionsCounterBadge = (props) => {
+const QuestionsCounterBadge = () => {
   const newGameCtx = useContext(newGameContext);
   return (
     <div

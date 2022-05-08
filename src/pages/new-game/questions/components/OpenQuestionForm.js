@@ -25,12 +25,7 @@ const OpenQuestionForm = (props) => {
       <MyInput {...answer1} fullWidth />
       <MyInput {...answer2} fullWidth />
       <MyInput {...answer3} fullWidth />
-      <Button
-        type="submit"
-        variant="contained"
-        sx={{ m: "1rem" }}
-        onClick={validateFileds}
-      >
+      <Button type="submit" variant="contained" sx={{ m: "1rem" }}>
         next question
       </Button>
       <Button variant="contained" sx={{ m: "1rem" }} onClick={finishHandler}>
