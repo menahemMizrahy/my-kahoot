@@ -1,6 +1,6 @@
 import { Button, Grid } from "@mui/material";
 import { useState } from "react";
-import QuestionForm from "./components/QuestionForm";
+import QuestionsForm from "./components/QuestionsForm";
 import QuestionsCounterBadge from "./components/QuestionsCounterBadge";
 
 const NewQuestions = () => {
@@ -33,7 +33,7 @@ const NewQuestions = () => {
           p: "1rem",
         }}
       >
-        <QuestionForm isOpenQuestion={isOpenQuestion} />
+        <QuestionsForm isOpenQuestion={isOpenQuestion} />
       </Grid>
       <Grid item xs={2} />
     </Grid>

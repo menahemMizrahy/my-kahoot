@@ -4,10 +4,10 @@ import { useNavigate } from "react-router-dom";
 import newGameContext from "../../../../store/new-game-context";
 import MyInput from "../../../../components/MyInput";
 import useInput from "../../../../hooks/input-hook";
-import BooleanQuestion from "./BooleanQuestion";
+import BooleanQuestionForm from "./BooleanQuestionForm";
 import OpenQuestionForm from "./OpenQuestionForm";
 
-const QuestionForm = ({ isOpenQuestion }) => {
+const QuestionsForm = ({ isOpenQuestion }) => {
   const newGameCtx = useContext(newGameContext);
   const navigate = useNavigate();
 
@@ -17,25 +17,30 @@ const QuestionForm = ({ isOpenQuestion }) => {
     "",
     inputValidate
   );
-
+  //submit a singel question at a time
   const onSubmit = (question) => newGameCtx.addQuestion(question);
 
   const [enoughQuestionsError, setEnoughQuestionsError] = useState(false);
-  const onFinish = (validateValues, validateFileds, submiting) => {
+
+  const onFinish = (areValuesValid, validateFileds, submiting) => {
+    //minimum questions limitation before finishing
     if (newGameCtx.questions.length < 2) {
       setEnoughQuestionsError(true);
       return;
     }
+    //submit the last question before finishing, if entered
     if (question.value) {
-      if (!validateValues) {
+      //validate the answers values
+      if (!areValuesValid) {
         validateFileds();
         return;
       }
       submiting();
     }
-    navigate("../finish", { replace: true });
-  };
 
+    navigate("../finish");
+  };
+  //reseting the question number error when a new question is submited
   useEffect(() => {
     setEnoughQuestionsError(false);
   }, [newGameCtx]);
@@ -46,7 +51,6 @@ const QuestionForm = ({ isOpenQuestion }) => {
     resetQuestion,
     onSubmit,
     onFinish,
-    enoughQuestionsError,
   };
 
   return (
@@ -56,8 +60,11 @@ const QuestionForm = ({ isOpenQuestion }) => {
       </Typography>
       <MyInput {...question} fullWidth />
       {isOpenQuestion && <OpenQuestionForm {...formProps} />}
-      {!isOpenQuestion && <BooleanQuestion {...formProps} />}
+      {!isOpenQuestion && <BooleanQuestionForm {...formProps} />}
+      {enoughQuestionsError && (
+        <p style={{ color: "red" }}>Not Enough Questions!</p>
+      )}
     </div>
   );
 };
-export default QuestionForm;
+export default QuestionsForm;

@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const useBooleanQuestion = ({
+const useBooleanQuestionForm = ({
   question,
   isOpenQuestion,
   onSubmit,
@@ -46,12 +46,11 @@ const useBooleanQuestion = ({
     submiting();
   };
 
-  const validateValues = () => {
-    return checked.falseAnswer === false && checked.trueAnswer === false;
-  };
+  const areValuesValid =
+    checked.falseAnswer === true || checked.trueAnswer === true;
 
   const finishHandler = () => {
-    onFinish(validateValues, validateFileds, submiting);
+    onFinish(areValuesValid, validateFileds, submiting);
   };
 
   return {
@@ -63,4 +62,4 @@ const useBooleanQuestion = ({
     finishHandler,
   };
 };
-export default useBooleanQuestion;
+export default useBooleanQuestionForm;

@@ -46,7 +46,7 @@ const useNewGame = () => {
     event.preventDefault();
 
     if (gameName.error || password.error || passwordAgain.error) return;
-
+    //dispatching the data
     newGameCtx.initGame({
       gameName: gameName.value,
       message: message.value,

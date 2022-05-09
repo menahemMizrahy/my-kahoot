@@ -5,7 +5,6 @@ import useOpenQuestionForm from "./openQuestionForm-hook";
 const OpenQuestionForm = (props) => {
   const {
     finishHandler,
-    validateFileds,
     answer3,
     answer2,
     answer1,
@@ -31,9 +30,6 @@ const OpenQuestionForm = (props) => {
       <Button variant="contained" sx={{ m: "1rem" }} onClick={finishHandler}>
         finish
       </Button>
-      {props.enoughQuestionsError && (
-        <p style={{ color: "red" }}>Not Enough Questions!</p>
-      )}
     </form>
   );
 };

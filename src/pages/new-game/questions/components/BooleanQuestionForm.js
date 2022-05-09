@@ -1,7 +1,7 @@
 import { Button, Typography } from "@mui/material";
-import useBooleanQuestion from "./booleanQuestion-hook";
+import useBooleanQuestionForm from "./booleanQuestionForm-hook";
 
-const BooleanQuestion = (props) => {
+const BooleanQuestionForm = (props) => {
   const {
     submitHandler,
     checked,
@@ -9,7 +9,7 @@ const BooleanQuestion = (props) => {
     answerError,
     validateFileds,
     finishHandler,
-  } = useBooleanQuestion(props);
+  } = useBooleanQuestionForm(props);
   return (
     <form onSubmit={submitHandler}>
       <Typography variant="h3" sx={{ m: "2rem" }}>
@@ -63,11 +63,8 @@ const BooleanQuestion = (props) => {
       <Button variant="contained" sx={{ m: "1rem" }} onClick={finishHandler}>
         finish
       </Button>
-      {props.enoughQuestionsError && (
-        <p style={{ color: "red" }}>Not Enough Questions!</p>
-      )}
     </form>
   );
 };
 
-export default BooleanQuestion;
+export default BooleanQuestionForm;
