@@ -1,7 +1,7 @@
 import { Button, Typography } from "@mui/material";
 import useBooleanQuestionForm from "./booleanQuestionForm-hook";
 
-const BooleanQuestionForm = (props) => {
+const BooleanQuestionForm = ({ enoughQuestions, ...props }) => {
   const {
     submitHandler,
     checked,
@@ -60,9 +60,15 @@ const BooleanQuestionForm = (props) => {
       >
         next question
       </Button>
-      <Button variant="contained" sx={{ m: "1rem" }} onClick={finishHandler}>
-        finish
-      </Button>
+      <span onClick={finishHandler}>
+        <Button
+          variant="contained"
+          sx={{ m: "1rem" }}
+          disabled={!enoughQuestions}
+        >
+          finish
+        </Button>
+      </span>
     </form>
   );
 };

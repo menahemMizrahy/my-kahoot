@@ -2,7 +2,8 @@ import { Typography, Button } from "@mui/material";
 import MyInput from "../../../../components/MyInput";
 import useOpenQuestionForm from "./openQuestionForm-hook";
 
-const OpenQuestionForm = (props) => {
+const OpenQuestionForm = ({ enoughQuestions, ...props }) => {
+  console.log(enoughQuestions);
   const {
     finishHandler,
     answer3,
@@ -27,9 +28,15 @@ const OpenQuestionForm = (props) => {
       <Button type="submit" variant="contained" sx={{ m: "1rem" }}>
         next question
       </Button>
-      <Button variant="contained" sx={{ m: "1rem" }} onClick={finishHandler}>
-        finish
-      </Button>
+      <span onClick={finishHandler}>
+        <Button
+          variant="contained"
+          sx={{ m: "1rem" }}
+          disabled={!enoughQuestions}
+        >
+          finish
+        </Button>
+      </span>
     </form>
   );
 };

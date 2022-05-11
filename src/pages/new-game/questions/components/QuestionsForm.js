@@ -17,40 +17,56 @@ const QuestionsForm = ({ isOpenQuestion }) => {
     "",
     inputValidate
   );
-  //submit a singel question at a time
-  const onSubmit = (question) => newGameCtx.addQuestion(question);
 
-  const [enoughQuestionsError, setEnoughQuestionsError] = useState(false);
+  const submitQuestion = (newQuestion, resetValues) => {
+    newGameCtx.addQuestion(newQuestion);
+    resetValues();
+  };
 
-  const onFinish = (areValuesValid, validateFileds, submiting) => {
+  const [enoughQuestions, setEnoughQuestions] = useState({
+    enough: false,
+    error: false,
+  });
+
+  const onFinish = (
+    areValuesValid,
+    validateFileds,
+    newQuestion,
+    resetValues
+  ) => {
     //minimum questions limitation before finishing
     if (newGameCtx.questions.length < 2) {
-      setEnoughQuestionsError(true);
+      setEnoughQuestions({ enough: false, error: true });
+      validateFileds();
       return;
     }
     //submit the last question before finishing, if entered
     if (question.value) {
-      //validate the answers values
       if (!areValuesValid) {
         validateFileds();
         return;
       }
-      submiting();
+      submitQuestion(newQuestion, resetValues);
     }
 
     navigate("../finish");
   };
   //reseting the question number error when a new question is submited
   useEffect(() => {
-    setEnoughQuestionsError(false);
+    console.log("efferct", newGameCtx.questions.length >= 2);
+    setEnoughQuestions({
+      enough: newGameCtx.questions.length >= 2,
+      error: false,
+    });
   }, [newGameCtx]);
 
   const formProps = {
     question,
     isOpenQuestion,
     resetQuestion,
-    onSubmit,
+    submitQuestion,
     onFinish,
+    enoughQuestions: enoughQuestions.enough,
   };
 
   return (
@@ -61,7 +77,7 @@ const QuestionsForm = ({ isOpenQuestion }) => {
       <MyInput {...question} fullWidth />
       {isOpenQuestion && <OpenQuestionForm {...formProps} />}
       {!isOpenQuestion && <BooleanQuestionForm {...formProps} />}
-      {enoughQuestionsError && (
+      {enoughQuestions.error && (
         <p style={{ color: "red" }}>Not Enough Questions!</p>
       )}
     </div>

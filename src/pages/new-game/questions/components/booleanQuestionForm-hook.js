@@ -3,8 +3,8 @@ import { useState } from "react";
 const useBooleanQuestionForm = ({
   question,
   isOpenQuestion,
-  onSubmit,
   onFinish,
+  submitQuestion,
   resetQuestion,
 }) => {
   const initialAnswers = {
@@ -16,10 +16,11 @@ const useBooleanQuestionForm = ({
 
   const answerCheckedHandler = (event) => {
     setAnswerError(false);
-    setChecked(() => {
-      return { ...initialAnswers, [event.target.value]: true };
-    });
+    setChecked({ ...initialAnswers, [event.target.value]: true });
   };
+
+  const areValuesValid =
+    checked.falseAnswer === true || checked.trueAnswer === true;
 
   const validateFileds = () => {
     question.onBlur();
@@ -28,29 +29,28 @@ const useBooleanQuestionForm = ({
     );
   };
 
-  const submiting = () => {
-    onSubmit({
-      question: question.value,
-      isOpenQuestion,
-      correctAnswer: checked.trueAnswer,
-    });
+  const newQuestion = {
+    question: question.value,
+    isOpenQuestion,
+    correctAnswer: checked.trueAnswer,
+  };
+
+  const resetValues = () => {
     resetQuestion();
     setChecked(initialAnswers);
   };
 
   const submitHandler = (event) => {
     event.preventDefault();
-    if (answerError || question.error) {
+    if (!areValuesValid) {
+      validateFileds();
       return;
     }
-    submiting();
+    submitQuestion(newQuestion, resetValues);
   };
 
-  const areValuesValid =
-    checked.falseAnswer === true || checked.trueAnswer === true;
-
   const finishHandler = () => {
-    onFinish(areValuesValid, validateFileds, submiting);
+    onFinish(areValuesValid, validateFileds, newQuestion, resetValues);
   };
 
   return {
