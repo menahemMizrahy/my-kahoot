@@ -10,6 +10,7 @@ const BooleanQuestionForm = ({ enoughQuestions, ...props }) => {
     validateFileds,
     finishHandler,
   } = useBooleanQuestionForm(props);
+
   return (
     <form onSubmit={submitHandler}>
       <Typography variant="h3" sx={{ m: "2rem" }}>
@@ -60,6 +61,7 @@ const BooleanQuestionForm = ({ enoughQuestions, ...props }) => {
       >
         next question
       </Button>
+      {/* getting the error message when trying to finish when the button is disabled */}
       <span onClick={finishHandler}>
         <Button
           variant="contained"

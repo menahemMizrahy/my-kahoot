@@ -3,7 +3,6 @@ import MyInput from "../../../../components/MyInput";
 import useOpenQuestionForm from "./openQuestionForm-hook";
 
 const OpenQuestionForm = ({ enoughQuestions, ...props }) => {
-  console.log(enoughQuestions);
   const {
     finishHandler,
     answer3,
@@ -28,6 +27,7 @@ const OpenQuestionForm = ({ enoughQuestions, ...props }) => {
       <Button type="submit" variant="contained" sx={{ m: "1rem" }}>
         next question
       </Button>
+      {/* getting the error message when trying to finish when the button is disabled */}
       <span onClick={finishHandler}>
         <Button
           variant="contained"

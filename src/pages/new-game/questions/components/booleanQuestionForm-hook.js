@@ -1,16 +1,18 @@
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
+// getting the props from the BooleanQuestionForm
 const useBooleanQuestionForm = ({
   question,
   isOpenQuestion,
   onFinish,
   submitQuestion,
   resetQuestion,
+  setAreValuesValid,
 }) => {
   const initialAnswers = {
     trueAnswer: false,
     falseAnswer: false,
   };
+
   const [checked, setChecked] = useState(initialAnswers);
   const [answerError, setAnswerError] = useState(false);
 
@@ -20,21 +22,22 @@ const useBooleanQuestionForm = ({
   };
 
   const areValuesValid =
-    checked.falseAnswer === true || checked.trueAnswer === true;
-
+    question.value.trim().length &&
+    (checked.falseAnswer === true || checked.trueAnswer === true);
+  //the current question to be submited to the context
+  const newQuestion = {
+    question: question.value,
+    isOpenQuestion,
+    correctAnswer: checked.trueAnswer,
+  };
+  //setting the error state when trying to submit without having the valid values
   const validateFileds = () => {
     question.onBlur();
     setAnswerError(
       checked.falseAnswer === false && checked.trueAnswer === false
     );
   };
-
-  const newQuestion = {
-    question: question.value,
-    isOpenQuestion,
-    correctAnswer: checked.trueAnswer,
-  };
-
+  // reset the form after submiting
   const resetValues = () => {
     resetQuestion();
     setChecked(initialAnswers);
@@ -50,8 +53,12 @@ const useBooleanQuestionForm = ({
   };
 
   const finishHandler = () => {
-    onFinish(areValuesValid, validateFileds, newQuestion, resetValues);
+    onFinish(validateFileds, newQuestion, resetValues);
   };
+
+  useEffect(() => {
+    setAreValuesValid(areValuesValid);
+  }, [areValuesValid, setAreValuesValid]);
 
   return {
     submitHandler,

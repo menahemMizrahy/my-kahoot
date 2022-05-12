@@ -28,14 +28,12 @@ const QuestionsForm = ({ isOpenQuestion }) => {
     error: false,
   });
 
-  const onFinish = (
-    areValuesValid,
-    validateFileds,
-    newQuestion,
-    resetValues
-  ) => {
+  const [areValuesValid, setAreValuesValid] = useState(false);
+
+  const onFinish = (validateFileds, newQuestion, resetValues) => {
     //minimum questions limitation before finishing
-    if (newGameCtx.questions.length < 2) {
+    if (!enoughQuestions.enough) {
+      //error messages
       setEnoughQuestions({ enough: false, error: true });
       validateFileds();
       return;
@@ -53,12 +51,14 @@ const QuestionsForm = ({ isOpenQuestion }) => {
   };
   //reseting the question number error when a new question is submited
   useEffect(() => {
-    console.log("efferct", newGameCtx.questions.length >= 2);
     setEnoughQuestions({
-      enough: newGameCtx.questions.length >= 2,
+      enough:
+        newGameCtx.questions.length >= 2 ||
+        // allowing finishing when the current question fills the minimum number of questions, and the values are valid
+        (newGameCtx.questions.length === 1 && areValuesValid),
       error: false,
     });
-  }, [newGameCtx]);
+  }, [newGameCtx, areValuesValid]);
 
   const formProps = {
     question,
@@ -67,6 +67,7 @@ const QuestionsForm = ({ isOpenQuestion }) => {
     submitQuestion,
     onFinish,
     enoughQuestions: enoughQuestions.enough,
+    setAreValuesValid,
   };
 
   return (
