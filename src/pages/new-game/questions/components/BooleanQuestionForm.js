@@ -53,21 +53,12 @@ const BooleanQuestionForm = ({ enoughQuestions, ...props }) => {
           />
         </div>
       </div>
-      <Button
-        type="submit"
-        variant="contained"
-        sx={{ m: "1rem" }}
-        onClick={validateFileds}
-      >
+      <Button type="submit" variant="contained" sx={{ m: "1rem" }} onClick={validateFileds}>
         next question
       </Button>
       {/* getting the error message when trying to finish when the button is disabled */}
       <span onClick={finishHandler}>
-        <Button
-          variant="contained"
-          sx={{ m: "1rem" }}
-          disabled={!enoughQuestions}
-        >
+        <Button variant="contained" sx={{ m: "1rem" }} disabled={!enoughQuestions}>
           finish
         </Button>
       </span>

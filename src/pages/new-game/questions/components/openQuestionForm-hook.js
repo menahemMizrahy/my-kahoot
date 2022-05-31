@@ -11,13 +11,10 @@ const useOpenQuestionForm = ({
   resetQuestion,
   setAreValuesValid,
 }) => {
-  const { resetInput: resetCorrectAnswer, ...correctAnswer } = useInput(
-    "",
-    inputValidate
-  );
-  const { resetInput: resetAnswer1, ...answer1 } = useInput("", inputValidate);
-  const { resetInput: resetAnswer2, ...answer2 } = useInput("", inputValidate);
-  const { resetInput: resetAnswer3, ...answer3 } = useInput("", inputValidate);
+  const { resetInput: resetCorrectAnswer, ...correctAnswer } = useInput("", inputValidate, true);
+  const { resetInput: resetAnswer1, ...answer1 } = useInput("", inputValidate, true);
+  const { resetInput: resetAnswer2, ...answer2 } = useInput("", inputValidate, true);
+  const { resetInput: resetAnswer3, ...answer3 } = useInput("", inputValidate, true);
 
   const areValuesValid =
     inputValidate(question.value) &&

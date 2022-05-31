@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const useInput = (initialValue, validation) => {
+const useInput = (initialValue, validation, resetRequired = false) => {
   const [value, setValue] = useState(initialValue);
   const changeHandler = (event) => {
     setValue(event.target.value);
@@ -8,11 +8,16 @@ const useInput = (initialValue, validation) => {
   //using the hook without error handling
   const [haseTuched, setHaseTuched] = useState(false);
   if (!validation) {
-    return {
-      value,
-      onChange: changeHandler,
-      resetInput: () => setValue(initialValue),
-    };
+    return resetRequired
+      ? {
+          value,
+          onChange: changeHandler,
+          resetInput: () => setValue(initialValue),
+        }
+      : {
+          value,
+          onChange: changeHandler,
+        };
   }
 
   const blurHandler = () => setHaseTuched(true);
@@ -21,16 +26,18 @@ const useInput = (initialValue, validation) => {
   //handel error when the filed is tuched and no input or wrong input was inserted
   const error = !valueIsValid && haseTuched;
 
-  return {
-    value,
-    onChange: changeHandler,
-    onBlur: blurHandler,
-    error,
-    resetInput: () => {
-      setHaseTuched(false);
-      setValue(initialValue);
-    },
-  };
+  let returnValue = { value, onChange: changeHandler, onBlur: blurHandler, error };
+
+  if (resetRequired)
+    returnValue = {
+      ...returnValue,
+      resetInput: () => {
+        setHaseTuched(false);
+        setValue(initialValue);
+      },
+    };
+
+  return returnValue;
 };
 
 export default useInput;

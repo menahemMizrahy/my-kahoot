@@ -13,10 +13,7 @@ const QuestionsForm = ({ isOpenQuestion }) => {
 
   const inputValidate = (value) => value.trim().length;
 
-  const { resetInput: resetQuestion, ...question } = useInput(
-    "",
-    inputValidate
-  );
+  const { resetInput: resetQuestion, ...question } = useInput("", inputValidate, true);
 
   const submitQuestion = (newQuestion, resetValues) => {
     newGameCtx.addQuestion(newQuestion);
@@ -78,9 +75,7 @@ const QuestionsForm = ({ isOpenQuestion }) => {
       <MyInput {...question} fullWidth />
       {isOpenQuestion && <OpenQuestionForm {...formProps} />}
       {!isOpenQuestion && <BooleanQuestionForm {...formProps} />}
-      {enoughQuestions.error && (
-        <p style={{ color: "red" }}>Not Enough Questions!</p>
-      )}
+      {enoughQuestions.error && <p style={{ color: "red" }}>Not Enough Questions!</p>}
     </div>
   );
 };

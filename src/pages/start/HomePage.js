@@ -17,7 +17,7 @@ const HomePage = () => {
 
   const [enterAsAdmin, setEnterAsAdmin] = useState(false);
   //excluding the reset function from the game code states for easyer forward to the MyInput component
-  const { resetInput, ...gameCodeData } = useInput(
+  const gameCodeData = useInput(
     //setting the default game code if passed to the URL via a link
     querySearch.get("gameCode") || "",
     (value) => value.length === 6
@@ -38,11 +38,7 @@ const HomePage = () => {
   return (
     <Grid container alignItems="end" sx={{ height: "100%" }}>
       <Grid item xs={1}>
-        <Button
-          variant="outlined"
-          sx={{ mt: "1rem" }}
-          onClick={createGameHandler}
-        >
+        <Button variant="outlined" sx={{ mt: "1rem" }} onClick={createGameHandler}>
           Create a New Game
         </Button>
       </Grid>
@@ -87,9 +83,7 @@ const HomePage = () => {
         >
           Admin
         </Button>
-        {enterAsAdmin && (
-          <Password message="enter your password:" {...adminPassword} />
-        )}
+        {enterAsAdmin && <Password message="enter your password:" {...adminPassword} />}
       </Grid>
       <Grid item xs={1} />
     </Grid>

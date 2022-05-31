@@ -4,15 +4,8 @@ import useNewGame from "./newGame-hook";
 
 const NewGame = () => {
   //spliting the logic and functions to a separated file
-  const {
-    submitHandler,
-    gameName,
-    message,
-    password,
-    passwordAgain,
-    validateFileds,
-  } = useNewGame();
-
+  const { submitHandler, gameName, message, password, passwordAgain, validateFileds } =
+    useNewGame();
   return (
     <form onSubmit={submitHandler}>
       <div style={{ margin: "2rem" }}>
@@ -22,10 +15,7 @@ const NewGame = () => {
         <MyInput fullWidth {...gameName} label="Game Name" />
       </div>
       <div style={{ margin: "6rem 0" }}>
-        <Typography
-          variant="h6"
-          sx={{ textAlign: "center", padding: "0 1rem" }}
-        >
+        <Typography variant="h6" sx={{ textAlign: "center", padding: "0 1rem" }}>
           Anything you would like to tell the players before they start...
         </Typography>
         <MyInput fullWidth {...message} label="A Message" />

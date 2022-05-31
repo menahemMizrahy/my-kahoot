@@ -18,18 +18,12 @@ const useNewGame = () => {
   const newGameCtx = useContext(newGameContext);
   //excluding the reset functions for easyer forward
   //assigning the values if already exist in the context
-  const { resetInput: resetName, ...gameName } = useInput(
-    newGameCtx.initGameValue.gameName || "",
-    (name) => name.trim().length
-  );
-  const { resetInput: resetMessage, ...message } = useInput(
+  const gameName = useInput(newGameCtx.initGameValue.gameName || "", (name) => name.trim().length);
+  const message = useInput(
     newGameCtx.initGameValue.message || "" //optional
   );
-  const { resetInput: resetPassword, ...password } = useInput(
-    newGameCtx.initGameValue.adminPassword || "",
-    passwordValidation
-  );
-  const { resetInput: resetPasswordAgain, ...passwordAgain } = useInput(
+  const password = useInput(newGameCtx.initGameValue.adminPassword || "", passwordValidation);
+  const passwordAgain = useInput(
     newGameCtx.initGameValue.adminPassword || "",
     confirmPassword(password.value)
   );
