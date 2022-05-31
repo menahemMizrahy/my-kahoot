@@ -22,6 +22,10 @@ const NewGame = () => {
       </div>
       <div style={{ display: "flex", flexDirection: "column" }}>
         <Typography variant="h6">Let's create a password:</Typography>
+        <Typography variant="h7" sx={{ mb: "10px", color: password.error ? "red" : "black" }}>
+          the password should contain number/s, an uppercase letter/s and a lowercase letter/s, and
+          must be atlist 8 charectores
+        </Typography>
         <MyInput sx={{ mb: "1rem" }} {...password} label="Password" />
         <Typography variant="h6">And again</Typography>
         <MyInput {...passwordAgain} label="The Password Again" />

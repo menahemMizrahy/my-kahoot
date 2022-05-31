@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import useInput from "../../../../hooks/input-hook";
+import useInput from "../../../../../hooks/input-hook";
 
 const inputValidate = (value) => !!value.trim().length;
 // getting the props from the OpenQuestionForm
@@ -50,9 +50,7 @@ const useOpenQuestionForm = ({
     event.preventDefault();
     if (!areValuesValid) {
       validateFileds();
-      return;
-    }
-    submitQuestion(newQuestion, resetValues);
+    } else submitQuestion(newQuestion, resetValues);
   };
 
   const finishHandler = () => {

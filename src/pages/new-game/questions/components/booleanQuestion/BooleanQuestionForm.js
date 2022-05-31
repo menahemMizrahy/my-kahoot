@@ -1,15 +1,10 @@
-import { Button, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
+import Buttons from "../Buttons";
 import useBooleanQuestionForm from "./booleanQuestionForm-hook";
 
 const BooleanQuestionForm = ({ enoughQuestions, ...props }) => {
-  const {
-    submitHandler,
-    checked,
-    answerCheckedHandler,
-    answerError,
-    validateFileds,
-    finishHandler,
-  } = useBooleanQuestionForm(props);
+  const { submitHandler, checked, answerCheckedHandler, answerError, finishHandler } =
+    useBooleanQuestionForm(props);
 
   return (
     <form onSubmit={submitHandler}>
@@ -53,15 +48,7 @@ const BooleanQuestionForm = ({ enoughQuestions, ...props }) => {
           />
         </div>
       </div>
-      <Button type="submit" variant="contained" sx={{ m: "1rem" }} onClick={validateFileds}>
-        next question
-      </Button>
-      {/* getting the error message when trying to finish when the button is disabled */}
-      <span onClick={finishHandler}>
-        <Button variant="contained" sx={{ m: "1rem" }} disabled={!enoughQuestions}>
-          finish
-        </Button>
-      </span>
+      <Buttons {...{ enoughQuestions, finishHandler }} />
     </form>
   );
 };

@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import newGameContext from "../../../../store/new-game-context";
 import MyInput from "../../../../components/MyInput";
 import useInput from "../../../../hooks/input-hook";
-import BooleanQuestionForm from "./BooleanQuestionForm";
-import OpenQuestionForm from "./OpenQuestionForm";
+import BooleanQuestionForm from "./booleanQuestion/BooleanQuestionForm";
+import OpenQuestionForm from "./openQuestion/OpenQuestionForm";
 
 const QuestionsForm = ({ isOpenQuestion }) => {
   const newGameCtx = useContext(newGameContext);

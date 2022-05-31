@@ -22,7 +22,7 @@ const NewQuestions = () => {
       >
         <QuestionsCounterBadge />
         <Button variant="contained" onClick={questionTypeHandler}>
-          Question type
+          {isOpenQuestion ? "Boolean Question" : "Open question"}
         </Button>
       </Grid>
       <Grid

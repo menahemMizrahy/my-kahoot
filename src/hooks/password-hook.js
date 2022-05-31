@@ -4,13 +4,9 @@ const usePassword = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  const passwordChangeHandler = (event) => {
-    setPassword(event.target.value);
-  };
+  const passwordChangeHandler = (event) => setPassword(event.target.value);
 
-  const showPasswordHandler = () => {
-    setShowPassword((show) => !show);
-  };
+  const showPasswordHandler = () => setShowPassword((show) => !show);
 
   return {
     password,

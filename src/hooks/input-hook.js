@@ -2,9 +2,8 @@ import { useState } from "react";
 
 const useInput = (initialValue, validation, resetRequired = false) => {
   const [value, setValue] = useState(initialValue);
-  const changeHandler = (event) => {
-    setValue(event.target.value);
-  };
+  const changeHandler = (event) => setValue(event.target.value);
+
   //using the hook without error handling
   const [haseTuched, setHaseTuched] = useState(false);
   if (!validation) {
