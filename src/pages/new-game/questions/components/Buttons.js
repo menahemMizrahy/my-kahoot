@@ -7,11 +7,11 @@ const Buttons = ({ finishHandler, enoughQuestions }) => {
         next question
       </Button>
       {/* getting the error message when trying to finish when the button is disabled */}
-      <span onClick={finishHandler}>
+      <div style={{ display: "inline-block" }} onClick={finishHandler}>
         <Button variant="contained" sx={{ m: "1rem" }} disabled={!enoughQuestions}>
           finish
         </Button>
-      </span>
+      </div>
     </>
   );
 };
