@@ -8,30 +8,39 @@ const useOpenQuestionForm = ({
   isOpenQuestion,
   onFinish,
   submitQuestion,
-  resetQuestion,
   setAreValuesValid,
 }) => {
-  const { resetInput: resetCorrectAnswer, ...correctAnswer } = useInput("", inputValidate, true);
-  const { resetInput: resetAnswer1, ...answer1 } = useInput("", inputValidate, true);
-  const { resetInput: resetAnswer2, ...answer2 } = useInput("", inputValidate, true);
-  const { resetInput: resetAnswer3, ...answer3 } = useInput("", inputValidate, true);
+  const {
+    resetInput: resetCorrectAnswer,
+    valueIsValid: correctAnswerIsValid,
+    ...correctAnswer
+  } = useInput("", inputValidate, true);
+  const {
+    resetInput: resetAnswer1,
+    valueIsValid: answer1IsValid,
+    ...answer1
+  } = useInput("", inputValidate, true);
+  const {
+    resetInput: resetAnswer2,
+    valueIsValid: answer2IsValid,
+    ...answer2
+  } = useInput("", inputValidate, true);
+  const {
+    resetInput: resetAnswer3,
+    valueIsValid: answer3IsValid,
+    ...answer3
+  } = useInput("", inputValidate, true);
 
   const areValuesValid =
-    inputValidate(question.value) &&
-    inputValidate(correctAnswer.value) &&
-    inputValidate(answer1.value) &&
-    inputValidate(answer2.value) &&
-    inputValidate(answer3.value);
+    question.isValid && correctAnswerIsValid && answer1IsValid && answer2IsValid && answer3IsValid;
   //the current question to be submited to the context
   const newQuestion = {
-    question: question.value,
     isOpenQuestion,
     correctAnswer: correctAnswer.value,
     rest: [answer1.value, answer2.value, answer3.value],
   };
   //setting the error state when trying to submit without having the valid values
   const validateFileds = () => {
-    question.onBlur();
     correctAnswer.onBlur();
     answer1.onBlur();
     answer2.onBlur();
@@ -43,14 +52,10 @@ const useOpenQuestionForm = ({
     resetAnswer2();
     resetAnswer3();
     resetCorrectAnswer();
-    resetQuestion();
   };
 
-  const submitHandler = (event) => {
-    event.preventDefault();
-    if (!areValuesValid) {
-      validateFileds();
-    } else submitQuestion(newQuestion, resetValues);
+  const submitHandler = () => {
+    submitQuestion(validateFileds, newQuestion, resetValues);
   };
 
   const finishHandler = () => {
@@ -67,6 +72,7 @@ const useOpenQuestionForm = ({
     answer2,
     answer1,
     correctAnswer,
+    areValuesValid,
     submitHandler,
   };
 };

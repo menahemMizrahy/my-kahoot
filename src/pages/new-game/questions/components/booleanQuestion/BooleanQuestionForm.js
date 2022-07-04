@@ -3,11 +3,17 @@ import Buttons from "../Buttons";
 import useBooleanQuestionForm from "./booleanQuestionForm-hook";
 
 const BooleanQuestionForm = ({ enoughQuestions, ...props }) => {
-  const { submitHandler, checked, answerCheckedHandler, answerError, finishHandler } =
-    useBooleanQuestionForm(props);
+  const {
+    submitHandler,
+    checked,
+    areValuesValid,
+    answerCheckedHandler,
+    answerError,
+    finishHandler,
+  } = useBooleanQuestionForm(props);
 
   return (
-    <form onSubmit={submitHandler}>
+    <form>
       <Typography variant="h3" sx={{ m: "2rem" }}>
         Choose your answer
       </Typography>
@@ -48,7 +54,7 @@ const BooleanQuestionForm = ({ enoughQuestions, ...props }) => {
           />
         </div>
       </div>
-      <Buttons {...{ enoughQuestions, finishHandler }} />
+      <Buttons {...{ enoughQuestions, finishHandler, areValuesValid, submitHandler }} />
     </form>
   );
 };

@@ -5,7 +5,6 @@ const useBooleanQuestionForm = ({
   isOpenQuestion,
   onFinish,
   submitQuestion,
-  resetQuestion,
   setAreValuesValid,
 }) => {
   const initialAnswers = {
@@ -22,29 +21,23 @@ const useBooleanQuestionForm = ({
   };
 
   const areValuesValid =
-    question.value.trim().length && (checked.falseAnswer === true || checked.trueAnswer === true);
+    question.isValid && (checked.falseAnswer === true || checked.trueAnswer === true);
   //the current question to be submited to the context
   const newQuestion = {
-    question: question.value,
     isOpenQuestion,
     correctAnswer: checked.trueAnswer,
   };
   //setting the error state when trying to submit without having the valid values
   const validateFileds = () => {
-    question.onBlur();
     setAnswerError(checked.falseAnswer === false && checked.trueAnswer === false);
   };
   // reset the form after submiting
   const resetValues = () => {
-    resetQuestion();
     setChecked(initialAnswers);
   };
 
-  const submitHandler = (event) => {
-    event.preventDefault();
-    if (!areValuesValid) {
-      validateFileds();
-    } else submitQuestion(newQuestion, resetValues);
+  const submitHandler = () => {
+    submitQuestion(validateFileds, newQuestion, resetValues);
   };
 
   const finishHandler = () => {
@@ -58,6 +51,7 @@ const useBooleanQuestionForm = ({
   return {
     submitHandler,
     checked,
+    areValuesValid,
     answerCheckedHandler,
     answerError,
     validateFileds,
