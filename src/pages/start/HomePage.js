@@ -17,7 +17,7 @@ const HomePage = () => {
 
   const [enterAsAdmin, setEnterAsAdmin] = useState(false);
   //excluding the reset function from the game code states for easyer forward to the MyInput component
-  const gameCodeData = useInput(
+  const { valueIsValid: gameCodeIsValid, ...gameCode } = useInput(
     //setting the default game code if passed to the URL via a link
     querySearch.get("gameCode") || "",
     (value) => value.length === 6
@@ -56,7 +56,7 @@ const HomePage = () => {
         <Typography variant="h1" sx={{ m: "0.8em" }}>
           Welcome!
         </Typography>
-        <MyInput {...gameCodeData} label="Game code" type="search" />
+        <MyInput {...gameCode} label="Game code" type="search" />
         <Button
           variant="contained"
           sx={{

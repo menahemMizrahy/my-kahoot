@@ -18,12 +18,18 @@ const useNewGame = () => {
   const newGameCtx = useContext(newGameContext);
   //excluding the reset functions for easyer forward
   //assigning the values if already exist in the context
-  const gameName = useInput(newGameCtx.initGameValue.gameName || "", (name) => name.trim().length);
-  const message = useInput(
+  const { valueIsValid: gameNameIsValid, ...gameName } = useInput(
+    newGameCtx.initGameValue.gameName || "",
+    (name) => name.trim().length
+  );
+  const { valueIsValid: messageIsValid, ...message } = useInput(
     newGameCtx.initGameValue.message || "" //optional
   );
-  const password = useInput(newGameCtx.initGameValue.adminPassword || "", passwordValidation);
-  const passwordAgain = useInput(
+  const { valueIsValid: passwordIsValid, ...password } = useInput(
+    newGameCtx.initGameValue.adminPassword || "",
+    passwordValidation
+  );
+  const { valueIsValid: passwordAgainIsValid, ...passwordAgain } = useInput(
     newGameCtx.initGameValue.adminPassword || "",
     confirmPassword(password.value)
   );
@@ -39,15 +45,16 @@ const useNewGame = () => {
   const submitHandler = (event) => {
     event.preventDefault();
 
-    if (gameName.error || password.error || passwordAgain.error) return;
-    //dispatching the data
-    newGameCtx.initGame({
-      gameName: gameName.value,
-      message: message.value,
-      adminPassword: password.value,
-    });
+    if (gameNameIsValid && passwordIsValid && passwordAgainIsValid) {
+      //dispatching the data
+      newGameCtx.initGame({
+        gameName: gameName.value,
+        message: message.value,
+        adminPassword: password.value,
+      });
 
-    navigate("../questions");
+      navigate("../questions");
+    }
   };
   return {
     submitHandler,
