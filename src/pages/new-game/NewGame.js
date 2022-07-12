@@ -3,9 +3,8 @@ import MyInput from "../../components/MyInput";
 import useNewGame from "./newGame-hook";
 
 const NewGame = () => {
-  //spliting the logic and functions to a separated file
-  const { submitHandler, gameName, message, password, passwordAgain, validateFileds } =
-    useNewGame();
+  //spliting the logic and functions to a separated file using costum hook
+  const { submitHandler, gameName, message, password, passwordAgain } = useNewGame();
   return (
     <form onSubmit={submitHandler}>
       <div style={{ margin: "2rem" }}>
@@ -31,7 +30,6 @@ const NewGame = () => {
         <MyInput {...passwordAgain} label="The Password Again" />
         <Button
           type="submit"
-          onClick={validateFileds}
           variant="contained"
           sx={{
             mt: "1em",

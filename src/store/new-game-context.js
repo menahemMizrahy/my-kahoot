@@ -4,7 +4,7 @@ import { initValue, newGameReducer } from "./new-game-reducer";
 const newGameContext = createContext(initValue);
 export default newGameContext;
 
-export const NewGameContextProvider = (props) => {
+export const NewGameContextProvider = ({ children }) => {
   const [newGameState, dispatch] = useReducer(newGameReducer, initValue, () => {
     const localData = JSON.parse(localStorage.getItem("newGameState"));
     return localData || initValue;
@@ -35,7 +35,7 @@ export const NewGameContextProvider = (props) => {
         },
       }}
     >
-      {props.children}
+      {children}
     </newGameContext.Provider>
   );
 };

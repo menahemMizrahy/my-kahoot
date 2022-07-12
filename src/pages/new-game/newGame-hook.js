@@ -8,21 +8,20 @@ const passwordValidation = (password) => {
   return /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]{8,}$/.test(password);
 };
 //wil recive the first password and return the comparence function
-const confirmPassword = (firstPassword) => {
-  return (secondPassword) => {
-    return firstPassword === secondPassword;
-  };
+const confirmPassword = (firstPassword, secondPassword) => {
+  return firstPassword === secondPassword;
 };
 
 const useNewGame = () => {
   const newGameCtx = useContext(newGameContext);
-  //excluding the reset functions for easyer forward
+
+  //excluding the valueIsValid for easyer forward to the MyInput component
   //assigning the values if already exist in the context
   const { valueIsValid: gameNameIsValid, ...gameName } = useInput(
     newGameCtx.initGameValue.gameName || "",
     (name) => name.trim().length
   );
-  const { valueIsValid: messageIsValid, ...message } = useInput(
+  const message = useInput(
     newGameCtx.initGameValue.message || "" //optional
   );
   const { valueIsValid: passwordIsValid, ...password } = useInput(
@@ -31,8 +30,9 @@ const useNewGame = () => {
   );
   const { valueIsValid: passwordAgainIsValid, ...passwordAgain } = useInput(
     newGameCtx.initGameValue.adminPassword || "",
-    confirmPassword(password.value)
+    confirmPassword.bind(null, password.value)
   );
+
   //force 'thuching' in the all fileds to ditect errors before submiting
   const validateFileds = () => {
     gameName.onBlur();
@@ -46,7 +46,7 @@ const useNewGame = () => {
     event.preventDefault();
 
     if (gameNameIsValid && passwordIsValid && passwordAgainIsValid) {
-      //dispatching the data
+      //dispatching the data to the context
       newGameCtx.initGame({
         gameName: gameName.value,
         message: message.value,
@@ -54,6 +54,8 @@ const useNewGame = () => {
       });
 
       navigate("../questions");
+    } else {
+      validateFileds();
     }
   };
   return {
@@ -62,7 +64,6 @@ const useNewGame = () => {
     message,
     password,
     passwordAgain,
-    validateFileds,
   };
 };
 export default useNewGame;

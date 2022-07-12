@@ -11,28 +11,28 @@ const QuestionsForm = ({ isOpenQuestion }) => {
   const newGameCtx = useContext(newGameContext);
   const navigate = useNavigate();
 
-  const inputValidate = (value) => value.trim().length;
-
   const {
     resetInput: resetQuestion,
     onBlur: questionOnBlur,
-    valueIsValid: isValid,
+    valueIsValid: questionIsValid,
     ...question
-  } = useInput("", inputValidate, true);
+  } = useInput("", (value) => value.trim().length, true);
 
-  const [areValuesValid, setAreValuesValid] = useState(false);
+  const [areAnswersValid, setAreAnswersValid] = useState(false);
 
   const submitQuestion = (validateFileds, newQuestion, resetValues) => {
-    if (!areValuesValid) {
+    if (!areAnswersValid) {
       validateFileds();
+      return false;
+    }
+    if (!questionIsValid) {
       questionOnBlur();
       return false;
-    } else {
-      newGameCtx.addQuestion({ ...newQuestion, question: question.value });
-      resetValues();
-      resetQuestion();
-      return true;
     }
+    newGameCtx.addQuestion({ ...newQuestion, question: question.value });
+    resetValues();
+    resetQuestion();
+    return true;
   };
 
   const MIN_QUESTIONS = 2;
@@ -41,7 +41,7 @@ const QuestionsForm = ({ isOpenQuestion }) => {
     error: false,
   });
 
-  const onFinish = (validateFileds, newQuestion, resetValues) => {
+  const finishQuestions = (validateFileds, newQuestion, resetValues) => {
     //minimum questions limitation before finishing
     if (!enoughQuestions.enough) {
       //error messages
@@ -57,24 +57,24 @@ const QuestionsForm = ({ isOpenQuestion }) => {
     }
     if (toNavigate) navigate("../finish");
   };
+
   //reseting the question number error when a new question is submited
   useEffect(() => {
     setEnoughQuestions({
       enough:
         newGameCtx.questions.length >= MIN_QUESTIONS ||
         // allowing finishing when the current question fills the minimum number of questions, and the values are valid
-        (newGameCtx.questions.length === MIN_QUESTIONS - 1 && areValuesValid),
+        (newGameCtx.questions.length === MIN_QUESTIONS - 1 && areAnswersValid && questionIsValid),
       error: false,
     });
-  }, [newGameCtx, areValuesValid]);
+  }, [newGameCtx, areAnswersValid, questionIsValid]);
 
   const formProps = {
-    question: { ...question, isValid },
     isOpenQuestion,
     submitQuestion,
-    onFinish,
+    finishQuestions,
     enoughQuestions: enoughQuestions.enough,
-    setAreValuesValid,
+    setAreAnswersValid,
   };
 
   return (

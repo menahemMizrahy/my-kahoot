@@ -4,7 +4,7 @@ import Buttons from "../Buttons";
 import useOpenQuestionForm from "./openQuestionForm-hook";
 
 const OpenQuestionForm = ({ enoughQuestions, ...props }) => {
-  const { finishHandler, answer3, answer2, answer1, correctAnswer, areValuesValid, submitHandler } =
+  const { finishHandler, answer3, answer2, answer1, correctAnswer, submitHandler } =
     useOpenQuestionForm(props);
 
   return (
@@ -19,7 +19,7 @@ const OpenQuestionForm = ({ enoughQuestions, ...props }) => {
       <MyInput {...answer1} fullWidth />
       <MyInput {...answer2} fullWidth />
       <MyInput {...answer3} fullWidth />
-      <Buttons {...{ enoughQuestions, finishHandler, areValuesValid, submitHandler }} />
+      <Buttons {...{ enoughQuestions, finishHandler, submitHandler }} />
     </form>
   );
 };

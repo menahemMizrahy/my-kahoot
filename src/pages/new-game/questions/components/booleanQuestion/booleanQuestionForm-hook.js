@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 // getting the props from the BooleanQuestionForm
 const useBooleanQuestionForm = ({
-  question,
   isOpenQuestion,
-  onFinish,
+  finishQuestions,
   submitQuestion,
-  setAreValuesValid,
+  setAreAnswersValid,
 }) => {
   const initialAnswers = {
     trueAnswer: false,
@@ -20,8 +19,6 @@ const useBooleanQuestionForm = ({
     setChecked({ ...initialAnswers, [event.target.value]: true });
   };
 
-  const areValuesValid =
-    question.isValid && (checked.falseAnswer === true || checked.trueAnswer === true);
   //the current question to be submited to the context
   const newQuestion = {
     isOpenQuestion,
@@ -41,17 +38,17 @@ const useBooleanQuestionForm = ({
   };
 
   const finishHandler = () => {
-    onFinish(validateFileds, newQuestion, resetValues);
+    finishQuestions(validateFileds, newQuestion, resetValues);
   };
 
+  const areValuesValid = checked.falseAnswer === true || checked.trueAnswer === true;
   useEffect(() => {
-    setAreValuesValid(areValuesValid);
-  }, [areValuesValid, setAreValuesValid]);
+    setAreAnswersValid(areValuesValid);
+  }, [areValuesValid, setAreAnswersValid]);
 
   return {
     submitHandler,
     checked,
-    areValuesValid,
     answerCheckedHandler,
     answerError,
     validateFileds,

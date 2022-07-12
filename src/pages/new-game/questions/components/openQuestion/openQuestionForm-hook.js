@@ -2,13 +2,12 @@ import { useEffect } from "react";
 import useInput from "../../../../../hooks/input-hook";
 
 const inputValidate = (value) => !!value.trim().length;
-// getting the props from the OpenQuestionForm
+
 const useOpenQuestionForm = ({
-  question,
   isOpenQuestion,
-  onFinish,
+  finishQuestions,
   submitQuestion,
-  setAreValuesValid,
+  setAreAnswersValid,
 }) => {
   const {
     resetInput: resetCorrectAnswer,
@@ -31,14 +30,13 @@ const useOpenQuestionForm = ({
     ...answer3
   } = useInput("", inputValidate, true);
 
-  const areValuesValid =
-    question.isValid && correctAnswerIsValid && answer1IsValid && answer2IsValid && answer3IsValid;
   //the current question to be submited to the context
   const newQuestion = {
     isOpenQuestion,
     correctAnswer: correctAnswer.value,
     rest: [answer1.value, answer2.value, answer3.value],
   };
+
   //setting the error state when trying to submit without having the valid values
   const validateFileds = () => {
     correctAnswer.onBlur();
@@ -46,6 +44,7 @@ const useOpenQuestionForm = ({
     answer2.onBlur();
     answer3.onBlur();
   };
+
   // reset the form after submiting
   const resetValues = () => {
     resetAnswer1();
@@ -59,12 +58,13 @@ const useOpenQuestionForm = ({
   };
 
   const finishHandler = () => {
-    onFinish(validateFileds, newQuestion, resetValues);
+    finishQuestions(validateFileds, newQuestion, resetValues);
   };
 
+  const areValuesValid = correctAnswerIsValid && answer1IsValid && answer2IsValid && answer3IsValid;
   useEffect(() => {
-    setAreValuesValid(areValuesValid);
-  }, [areValuesValid, setAreValuesValid]);
+    setAreAnswersValid(areValuesValid);
+  }, [areValuesValid, setAreAnswersValid]);
 
   return {
     finishHandler,
@@ -72,7 +72,6 @@ const useOpenQuestionForm = ({
     answer2,
     answer1,
     correctAnswer,
-    areValuesValid,
     submitHandler,
   };
 };

@@ -16,9 +16,9 @@ const HomePage = () => {
   const adminPassword = usePassword();
 
   const [enterAsAdmin, setEnterAsAdmin] = useState(false);
-  //excluding the reset function from the game code states for easyer forward to the MyInput component
+  //excluding the valueIsValid from the game code states for easyer forward to the MyInput component
   const { valueIsValid: gameCodeIsValid, ...gameCode } = useInput(
-    //setting the default game code if passed to the URL via a link
+    //setting the default game code if passed to the URL
     querySearch.get("gameCode") || "",
     (value) => value.length === 6
   );

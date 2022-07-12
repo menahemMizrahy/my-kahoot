@@ -6,7 +6,7 @@ const usePassword = () => {
 
   const passwordChangeHandler = (event) => setPassword(event.target.value);
 
-  const showPasswordHandler = () => setShowPassword((show) => !show);
+  const showPasswordHandler = () => setShowPassword(!showPassword);
 
   return {
     password,

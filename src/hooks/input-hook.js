@@ -22,7 +22,7 @@ const useInput = (initialValue, validation, resetRequired = false) => {
   const blurHandler = () => setHaseTuched(true);
 
   const valueIsValid = validation(value);
-  //handel error when the filed is tuched and wrong input was inserted
+  //setting error when the filed is tuched and wrong input was inserted
   const error = !valueIsValid && haseTuched;
 
   let returnValue = { value, valueIsValid, onChange: changeHandler, onBlur: blurHandler, error };
